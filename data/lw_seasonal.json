@@ -1,0 +1,138 @@
+{
+ "source": "Larry Williams Forecast 2026 (Oś Czasu cykli miesięcznych, XII.2025)",
+ "months": [
+  "Sty",
+  "Lut",
+  "Mar",
+  "Kwi",
+  "Maj",
+  "Cze",
+  "Lip",
+  "Sie",
+  "Wrz",
+  "Paź",
+  "Lis",
+  "Gru"
+ ],
+ "assets": {
+  "sp_djia": {
+   "label": "S&P 500 / DJIA",
+   "sig": [
+    "long",
+    "long",
+    "caution",
+    "caution",
+    "short",
+    "long",
+    "long",
+    "long",
+    "caution",
+    "long",
+    "long",
+    "long"
+   ]
+  },
+  "gold": {
+   "label": "ZŁOTO (XAUUSD)",
+   "sig": [
+    "long",
+    "long",
+    "long",
+    "long",
+    "long",
+    "caution",
+    "long",
+    "long",
+    "caution",
+    "long",
+    "long",
+    "long"
+   ]
+  },
+  "oil": {
+   "label": "ROPA (XTIUSD)",
+   "sig": [
+    "caution",
+    "caution",
+    "caution",
+    "long",
+    "long",
+    "long",
+    "long",
+    "long",
+    "long",
+    "long",
+    "long",
+    "long"
+   ]
+  },
+  "bonds": {
+   "label": "US OBLIGACJE (TLT)",
+   "sig": [
+    "long",
+    "long",
+    "long",
+    "long",
+    "long",
+    "long",
+    "long",
+    "long",
+    "caution",
+    "long",
+    "long",
+    "long"
+   ]
+  },
+  "usd": {
+   "label": "USD (Dollar)",
+   "sig": [
+    "long",
+    "long",
+    "long",
+    "caution",
+    "caution",
+    "caution",
+    "caution",
+    "caution",
+    "caution",
+    "neutral",
+    "neutral",
+    "neutral"
+   ]
+  },
+  "reits": {
+   "label": "NIERUCHOMOŚCI",
+   "sig": [
+    "short",
+    "short",
+    "short",
+    "short",
+    "short",
+    "short",
+    "short",
+    "short",
+    "short",
+    "short",
+    "short",
+    "short"
+   ]
+  },
+  "btc": {
+   "label": "BITCOIN (GBTC)",
+   "sig": [
+    "long",
+    "caution",
+    "caution",
+    "long",
+    "long",
+    "caution",
+    "long",
+    "long",
+    "caution",
+    "long",
+    "long",
+    "long"
+   ]
+  }
+ }
+}
