@@ -132,7 +132,7 @@ def main():
                 print(f"  {yr}: [skip] juz policzony", flush=True)
                 continue
             try:
-                to_s = 6000 if sym == 'GER40' else 2400  # GER40 na m1 wolny → dłuższy limit
+                to_s = 6000 if sym in ('GER40', 'US100') else 2400  # m1 2023 wolny → dłuższy limit
                 rep = run_seg(robot, sym, tf, spread, params, frm, to, timeout_s=to_s)
                 bm, net, n, trades = bucket(rep)
                 roi = (rep.get("main") or {}).get("roi")

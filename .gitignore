@@ -1,2 +1,4 @@
-__pycache__/
+*.log
 *.pyc
+__pycache__/
+nightly_retry.log
