@@ -387,6 +387,94 @@ def render_forecast(fc):
             + ''.join(rows) + '</tbody></table></div>')
 
 
+def render_weekly(lw, cot):
+    """Oś tygodniowa 2026 (52 tyg, przewijana): LW + COT, strzałki ▲▼~•.
+    Złoto/S&P = zwroty śród-miesięczne wg dat LW; reszta = miesięczny sygnał na tygodnie."""
+    if not lw:
+        return ''
+    from datetime import date, timedelta
+    d = date(2026, 1, 1)
+    while d.weekday() != 0:            # pierwszy poniedziałek 2026
+        d += timedelta(days=1)
+    weeks = [d + timedelta(days=7 * i) for i in range(52)]
+    mids = [w + timedelta(days=3) for w in weeks]   # czwartek = środek tygodnia
+    lwa = lw.get('assets', {})
+
+    # zwroty śród-miesięczne wg dat z Kalendarza LW (breakpointy)
+    GOLD = [(date(2026, 1, 1), 'long'), (date(2026, 5, 15), 'caution'), (date(2026, 8, 15), 'long')]
+    SPX = [(date(2026, 1, 1), 'long'), (date(2026, 2, 15), 'short'), (date(2026, 6, 16), 'long'),
+           (date(2026, 8, 31), 'caution'), (date(2026, 10, 1), 'long')]
+
+    def bp(bps, dt):
+        s = None
+        for st, sig in bps:
+            if dt >= st:
+                s = sig
+        return s
+
+    def mo(key, m):
+        sig = lwa.get(key, {}).get('sig')
+        return sig[m - 1] if sig and m - 1 < len(sig) else None
+
+    def wsig(key, i):
+        dt = mids[i]
+        if key == 'gold':
+            return bp(GOLD, dt)
+        if key == 'sp_djia':
+            return bp(SPX, dt)
+        return mo(key, dt.month)
+
+    cotm = (cot or {}).get('markets', {})
+
+    def csig(key, i):
+        c = cotm.get(key)
+        if not c or c.get('error'):
+            return None
+        sig = c.get('sig'); m = mids[i].month
+        return sig[m - 1] if sig and m - 1 < len(sig) else None
+
+    def sg(s):
+        mp = {'long': ('▲', '#26a69a'), 'short': ('▼', '#ef5350'),
+              'caution': ('~', '#e8c766'), 'neutral': ('•', '#787b86')}
+        if not s:
+            return '<td class="wk z">–</td>'
+        ch, col = mp.get(s, ('?', '#787b86'))
+        return f'<td class="wk" style="color:{col};font-weight:700">{ch}</td>'
+
+    # nagłówek: miesiąc (colspan) + dzień początku tygodnia
+    h1 = ['<tr class="hd"><th class="stick l" rowspan="2">Aktywo</th>']
+    seq = [m.month for m in mids]
+    i = 0
+    while i < len(seq):
+        j = i
+        while j < len(seq) and seq[j] == seq[i]:
+            j += 1
+        h1.append(f'<th colspan="{j-i}" class="ynew ygrp">{MONTHS_PL[seq[i]-1]}</th>')
+        i = j
+    h1.append('</tr>')
+    h2 = ['<tr class="hd">'] + [f'<th class="wk{" ynew" if w.day <= 7 else ""}">{w.day}</th>' for w in weeks] + ['</tr>']
+
+    lw_rows = [('gold', '🥇 Złoto (LW)'), ('sp_djia', '📈 S&P/DJIA (LW)'), ('usd', '💵 USD (LW)'),
+               ('oil', '🛢 Ropa (LW)'), ('bonds', '🏦 Obligacje TLT (LW)'), ('btc', '₿ Bitcoin (LW)')]
+    cot_rows = [('gold', '🥇 Złoto — COT spek.'), ('nasdaq', '📈 Nasdaq — COT spek.'), ('jpy', '💴 JPY — COT spek.')]
+    body = []
+    for key, lab in lw_rows:
+        body.append('<tr><td class="stick l">' + lab + '</td>' + ''.join(sg(wsig(key, i)) for i in range(52)) + '</tr>')
+    body.append('<tr><td colspan="53" class="grp">COT — sezonowa zmiana pozycji dużych spekulantów (miesięczna, na tygodnie)</td></tr>')
+    for key, lab in cot_rows:
+        body.append('<tr><td class="stick l">' + lab + '</td>' + ''.join(sg(csig(key, i)) for i in range(52)) + '</tr>')
+
+    return ('<div class="h2">🗓️ Sezonowość tydzień-po-tygodniu 2026 (LW + COT) — '
+            '▲ long · ▼ short · ~ ostrożność · • neutralnie</div>'
+            '<div class="note">Oś tygodniowa całego 2026 — <b>przewiń w bok</b>. <b>Złoto i S&P/DJIA</b> mają '
+            'zwroty śród-miesięczne wg konkretnych dat LW (S&P: dołek ~16 cze, słabość sie–wrz; złoto: '
+            'pullback poł.maja–poł.sie). Pozostałe aktywa i <b>COT</b> — sygnał miesięczny rozłożony na tygodnie '
+            '(LW podaje sezonowość w skali miesiąca/zakresu, nie tygodnia — to nie fałszywa precyzja tygodniowa). '
+            'Nagłówek = miesiąc; liczba = dzień poniedziałku otwierającego tydzień.</div>'
+            '<div class="scroll"><table class="grid"><thead>' + ''.join(h1) + ''.join(h2)
+            + '</thead><tbody>' + ''.join(body) + '</tbody></table></div>')
+
+
 def render_swing(sw):
     if not sw:
         return ''
@@ -538,6 +626,7 @@ table.tl{{min-width:100%}}
 .grid td.rk.full{{background:rgba(38,166,154,.25);color:#7fd8cc;font-weight:600}}
 .grid td.rk.red{{background:rgba(232,199,102,.20);color:#e8c766}}
 .grid td.rk.off{{color:#4a4e59}}
+.grid td.wk,.grid th.wk{{min-width:22px;text-align:center;padding:3px 2px}}
 .grid td.hc{{color:#f0f2f4}}
 .grid td.hc .v{{font-weight:600}}
 .grid td.hc.b{{font-weight:700}}
@@ -574,7 +663,7 @@ def main():
     fc = load("lw_forecast.json")
     sw = load("ftmo_swing.json")
     section = (render_section(mbt, lw, cot) + render_corr(corr) + render_forecast(fc)
-               + render_swing(sw) + render_next2(sw))
+               + render_weekly(lw, cot) + render_swing(sw) + render_next2(sw))
     ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     nb = len([1 for d in (mbt or {}).values() if isinstance(d, dict) and d.get("by_month") and not d.get("error")])
     sub = (f"Oś czasu miesięcznego P&amp;L portfela {nb} botów (backtest championów) vs cykle COT / "
