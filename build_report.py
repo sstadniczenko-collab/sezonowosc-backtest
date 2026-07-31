@@ -457,6 +457,50 @@ def render_swing(sw):
         + ''.join(rules_rows) + '</tbody></table></div>')
 
 
+def render_next2(sw):
+    """Panel na dole: ryzyko %/bota na 2 najbliższe miesiące (co ustawić / co zmienić)."""
+    if not sw:
+        return ''
+    from datetime import datetime as _DT, timezone as _TZ
+    nowm = _DT.now(_TZ.utc).month
+    m1 = (nowm % 12) + 1
+    m2 = ((nowm + 1) % 12) + 1
+    mg = sw['managed']['rows']
+    r1 = next((r for r in mg if r['m'] == m1), None)
+    r2 = next((r for r in mg if r['m'] == m2), None)
+    if not r1 or not r2:
+        return ''
+    order, rules, base = sw['order'], sw['rules'], sw['base_risk']
+
+    def rcell(v):
+        if v == 0:
+            return '<td class="rk off">OFF</td>'
+        cls = 'full' if v >= base else 'red'
+        return f'<td class="rk {cls}">{v:.2f}%</td>'
+
+    def lab(v):
+        return "OFF" if v == 0 else f"{v:.2f}"
+    rows = []
+    for t in order:
+        v1 = r1['perbot'][t]['risk']; v2 = r2['perbot'][t]['risk']
+        x = rules[t]
+        chg = '—' if abs(v1 - v2) < 1e-9 else f'{lab(v1)} → {lab(v2)}'
+        chgc = '#787b86' if chg == '—' else '#8fa7ff'
+        rows.append(f'<tr><td class="l">{_esc(x["name"])} '
+                    f'<span class="dim">{_esc(x["symbol"])} {_esc(x["tf"])}</span></td>'
+                    + rcell(v1) + rcell(v2)
+                    + f'<td class="l" style="color:{chgc}">{chg}</td></tr>')
+    head = (f'<tr class="hd"><th class="l">Bot / symbol / wykres</th>'
+            f'<th>{MONTHS_PL[m1-1]}</th><th>{MONTHS_PL[m2-1]}</th><th class="l">zmiana</th></tr>')
+    return ('<div class="h2">⚙️ Ustawienia na najbliższe 2 miesiące '
+            f'({MONTHS_PL[m1-1]} → {MONTHS_PL[m2-1]}) — ryzyko %/bota</div>'
+            '<div class="note">Co ustawić i co zmienić między miesiącami. <b>OFF</b> = nie uruchamiaj / '
+            'zatrzymaj instancję na ten miesiąc. Reszta parametrów bez zmian (patrz arkusze deploymentu '
+            'FORWARD_962/ftmo_swing_80k). Wartości z planu zarządzanego symulacji Swing wyżej.</div>'
+            '<div class="scroll"><table class="grid"><thead>' + head + '</thead><tbody>'
+            + ''.join(rows) + '</tbody></table></div>')
+
+
 PAGE = """<!doctype html><html lang="pl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sezonowość — backtest</title>
@@ -530,7 +574,7 @@ def main():
     fc = load("lw_forecast.json")
     sw = load("ftmo_swing.json")
     section = (render_section(mbt, lw, cot) + render_corr(corr) + render_forecast(fc)
-               + render_swing(sw))
+               + render_swing(sw) + render_next2(sw))
     ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     nb = len([1 for d in (mbt or {}).values() if isinstance(d, dict) and d.get("by_month") and not d.get("error")])
     sub = (f"Oś czasu miesięcznego P&amp;L portfela {nb} botów (backtest championów) vs cykle COT / "
