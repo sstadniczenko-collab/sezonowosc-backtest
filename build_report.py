@@ -230,6 +230,80 @@ def render_section(monthly_bt, lw, cot):
     return banner + timeline + year_tbl + seasonal
 
 
+def _esc(s):
+    return str(s).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+
+
+def render_corr(corr):
+    if not corr:
+        return ''
+
+    def num(v, suf=''):
+        if v is None:
+            return '<td class="num dim">—</td>'
+        col = '#26a69a' if v > 0 else ('#ef5350' if v < 0 else '#787b86')
+        return f'<td class="num" style="color:{col}">{v}{suf}</td>'
+
+    def verd(b):
+        if not b or b.get('corr') is None:
+            return ('—', '#787b86')
+        c, e = b['corr'], b.get('edge_eur')
+        if c >= 0.15 and (e is None or e > 0):
+            return ('ZGODNY z cyklem', '#26a69a')
+        if c <= -0.15 and (e is None or e < 0):
+            return ('PRZECIW cyklowi', '#ef5350')
+        return ('neutralnie / słabo', '#e8c766')
+
+    rows = []
+    for key, r in corr.items():
+        for src, lab in (('lw', 'LW'), ('cot', 'COT')):
+            b = r.get(src)
+            if not b:
+                continue
+            vt, vc = verd(b)
+            first = (f'<td class="l b" rowspan="2">{_esc(r["label"])} '
+                     f'<span class="dim">{r["n_bots"]} bot · {r["n_months"]} mies</span></td>') if src == 'lw' else ''
+            wr = (f'{b["wr_long"]}% / {b["wr_other"]}%' if b["wr_long"] is not None else '—')
+            rows.append('<tr>' + first + f'<td class="l">{lab}</td>' + num(b['corr']) + num(b['edge_eur'], '€')
+                        + f'<td class="num">{wr}</td>'
+                        + f'<td class="l" style="color:{vc};font-weight:700">{vt}</td></tr>')
+    head = ('<tr class="hd"><th class="l">Klasa</th><th class="l">Źródło</th><th>corr</th>'
+            '<th>edge €/mies</th><th>WR long/reszta</th><th class="l">werdykt</th></tr>')
+    return ('<div class="h2">🔗 Zgodność naszych botów z sezonowością (korelacja P&amp;L z biasem miesiąca)</div>'
+            '<div class="note">corr = Pearson znaku sezonowego (+1 long / −1 short / 0) z miesięcznym P&amp;L klasy; '
+            'edge = śr. P&amp;L w miesiącach long minus reszta. Dodatnie = gramy Z cyklem. <b>Wstępne</b> — '
+            'backtest niekompletny, werdykt się zmieni po komplecie. COT = sezonowa zmiana pozycji spekulantów '
+            '(≠ cena), interpretuj ostrożnie. To odpowiada na: czy nasz edge jedzie z sezonowością, czy wbrew.</div>'
+            '<div class="scroll"><table class="grid"><thead>' + head + '</thead><tbody>'
+            + ''.join(rows) + '</tbody></table></div>')
+
+
+def render_forecast(fc):
+    if not fc or not fc.get('items'):
+        return ''
+    rows = []
+    curq = object()
+    for it in fc['items']:
+        if it.get('q') != curq:
+            curq = it.get('q')
+            rows.append(f'<tr><td colspan="5" class="grp">{_esc(curq or "Setupy krótkoterminowe (powtarzalne)")}</td></tr>')
+        sig = it.get('sygnal', '')
+        col = '#26a69a' if ('BULL' in sig or '📈' in sig) else ('#ef5350' if ('BEAR' in sig or '📉' in sig) else '#e8c766')
+        rows.append('<tr>' + f'<td class="l">{_esc(it.get("okres",""))}</td>'
+                    + f'<td class="l">{_esc(it.get("aktywo",""))}</td>'
+                    + f'<td class="l" style="color:{col}">{_esc(sig)}</td>'
+                    + f'<td class="l dim">{_esc(it.get("pewnosc",""))}</td>'
+                    + f'<td class="l cyt">{_esc(it.get("cytat",""))}</td></tr>')
+    head = ('<tr class="hd"><th class="l">Okres</th><th class="l">Aktywo</th><th class="l">Sygnał</th>'
+            '<th class="l">Pewność</th><th class="l">Cytat Larry\'ego</th></tr>')
+    return ('<div class="h2">🔮 Prognoza LW na przyszłość (2026) — co Larry przewiduje</div>'
+            '<div class="note">To <b>predykcja</b> (cykle + sezonowość + fundamenty), nie backtest. Miesza część '
+            '<b>powtarzalną</b> (sezonowość — można cofać/botować) z <b>rok-specyficzną</b> (decennial „rok-6", '
+            '4-letni dołek maj–cze, 7-letni cykl złota) — tej drugiej NIE stosujemy do 2023–2025.</div>'
+            '<div class="scroll"><table class="grid fc"><thead>' + head + '</thead><tbody>'
+            + ''.join(rows) + '</tbody></table></div>')
+
+
 PAGE = """<!doctype html><html lang="pl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sezonowość — backtest</title>
@@ -271,6 +345,8 @@ table.tl{{min-width:100%}}
 .grid td.grp{{padding:6px 10px 1px;color:#9aa0ad;font-size:11px}}
 .grid .dim{{color:#787b86;font-size:11px}}
 .grid tr.err{{opacity:.6}}
+.grid.fc td{{white-space:normal;vertical-align:top}}
+.grid td.cyt{{color:#9aa0ad;font-size:11px;max-width:520px;font-style:italic}}
 .foot{{margin-top:22px;color:#5c606b;font-size:11px;line-height:1.6;border-top:1px solid #2a2e39;padding-top:12px}}
 </style></head><body><div class="wrap">
 <h1>Sezonowość — backtest</h1>
@@ -285,7 +361,9 @@ def main():
     mbt = load("monthly_bt_results.json", os.path.join(os.path.dirname(HERE), "hts_loop"))
     lw = load("lw_seasonal.json")
     cot = load("cot_seasonal.json")
-    section = render_section(mbt, lw, cot)
+    corr = load("corr.json")
+    fc = load("lw_forecast.json")
+    section = render_section(mbt, lw, cot) + render_corr(corr) + render_forecast(fc)
     ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     nb = len([1 for d in (mbt or {}).values() if isinstance(d, dict) and d.get("by_month") and not d.get("error")])
     sub = (f"Oś czasu miesięcznego P&amp;L portfela {nb} botów (backtest championów) vs cykle COT / "

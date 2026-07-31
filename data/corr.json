@@ -1,0 +1,80 @@
+{
+ "gold": {
+  "label": "Złoto",
+  "n_bots": 2,
+  "n_months": 43,
+  "total_pnl": 5721.2,
+  "lw": {
+   "corr": 0.18,
+   "avg_long": 300.2,
+   "avg_other": -726.4,
+   "edge_eur": 1026.6,
+   "wr_long": 44,
+   "wr_other": 29,
+   "n_long": 36,
+   "n_other": 7
+  },
+  "cot": {
+   "corr": -0.29,
+   "avg_long": -1418.8,
+   "avg_other": 384.7,
+   "edge_eur": -1803.5,
+   "wr_long": 17,
+   "wr_other": 46,
+   "n_long": 6,
+   "n_other": 37
+  }
+ },
+ "us": {
+  "label": "US indeksy (+DAX)",
+  "n_bots": 2,
+  "n_months": 31,
+  "total_pnl": 8943.2,
+  "lw": {
+   "corr": 0.05,
+   "avg_long": 465.0,
+   "avg_other": -32.4,
+   "edge_eur": 497.4,
+   "wr_long": 65,
+   "wr_other": 55,
+   "n_long": 20,
+   "n_other": 11
+  },
+  "cot": {
+   "corr": 0.0,
+   "avg_long": 237.9,
+   "avg_other": 306.1,
+   "edge_eur": -68.2,
+   "wr_long": 50,
+   "wr_other": 65,
+   "n_long": 8,
+   "n_other": 23
+  }
+ },
+ "jpy": {
+  "label": "JPY",
+  "n_bots": 1,
+  "n_months": 40,
+  "total_pnl": 2306.3,
+  "lw": {
+   "corr": -0.32,
+   "avg_long": -43.5,
+   "avg_other": 101.0,
+   "edge_eur": -144.5,
+   "wr_long": 33,
+   "wr_other": 68,
+   "n_long": 12,
+   "n_other": 28
+  },
+  "cot": {
+   "corr": -0.16,
+   "avg_long": 47.8,
+   "avg_other": 60.9,
+   "edge_eur": -13.1,
+   "wr_long": 60,
+   "wr_other": 57,
+   "n_long": 10,
+   "n_other": 30
+  }
+ }
+}
