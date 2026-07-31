@@ -546,46 +546,43 @@ def render_swing(sw):
 
 
 def render_next2(sw):
-    """Panel na dole: ryzyko %/bota na 2 najbliższe miesiące (co ustawić / co zmienić)."""
+    """Harmonogram ryzyka per bot do końca roku: wiersz=bot, kolumny=miesiące (parametr/miesiąc)."""
     if not sw:
         return ''
     from datetime import datetime as _DT, timezone as _TZ
     nowm = _DT.now(_TZ.utc).month
-    m1 = (nowm % 12) + 1
-    m2 = ((nowm + 1) % 12) + 1
-    mg = sw['managed']['rows']
-    r1 = next((r for r in mg if r['m'] == m1), None)
-    r2 = next((r for r in mg if r['m'] == m2), None)
-    if not r1 or not r2:
+    mg = {r['m']: r for r in sw['managed']['rows']}
+    months = [m for m in range(nowm, 13) if m in mg]
+    if not months:
         return ''
     order, rules, base = sw['order'], sw['rules'], sw['base_risk']
 
-    def rcell(v):
+    def rcell(v, prev=None):
+        chg = ' chg' if (prev is not None and abs(v - prev) > 1e-9) else ''
         if v == 0:
-            return '<td class="rk off">OFF</td>'
+            return f'<td class="rk off{chg}">OFF</td>'
         cls = 'full' if v >= base else 'red'
-        return f'<td class="rk {cls}">{v:.2f}%</td>'
+        return f'<td class="rk {cls}{chg}">{v:.2f}</td>'
 
-    def lab(v):
-        return "OFF" if v == 0 else f"{v:.2f}"
+    head = ('<tr class="hd"><th class="stick l">Bot / symbol / wykres</th>'
+            + ''.join(f'<th>{MONTHS_PL[m-1]}</th>' for m in months) + '</tr>')
     rows = []
     for t in order:
-        v1 = r1['perbot'][t]['risk']; v2 = r2['perbot'][t]['risk']
         x = rules[t]
-        chg = '—' if abs(v1 - v2) < 1e-9 else f'{lab(v1)} → {lab(v2)}'
-        chgc = '#787b86' if chg == '—' else '#8fa7ff'
-        rows.append(f'<tr><td class="l">{_esc(x["name"])} '
-                    f'<span class="dim">{_esc(x["symbol"])} {_esc(x["tf"])}</span></td>'
-                    + rcell(v1) + rcell(v2)
-                    + f'<td class="l" style="color:{chgc}">{chg}</td></tr>')
-    head = (f'<tr class="hd"><th class="l">Bot / symbol / wykres</th>'
-            f'<th>{MONTHS_PL[m1-1]}</th><th>{MONTHS_PL[m2-1]}</th><th class="l">zmiana</th></tr>')
-    return ('<div class="h2">⚙️ Ustawienia na najbliższe 2 miesiące '
-            f'({MONTHS_PL[m1-1]} → {MONTHS_PL[m2-1]}) — ryzyko %/bota</div>'
-            '<div class="note">Co ustawić i co zmienić między miesiącami. <b>OFF</b> = nie uruchamiaj / '
-            'zatrzymaj instancję na ten miesiąc. Reszta parametrów bez zmian (patrz arkusze deploymentu '
-            'FORWARD_962/ftmo_swing_80k). Wartości z planu zarządzanego symulacji Swing wyżej.</div>'
-            '<div class="scroll"><table class="grid"><thead>' + head + '</thead><tbody>'
+        cells = []
+        prev = None
+        for m in months:
+            v = mg[m]['perbot'][t]['risk']
+            cells.append(rcell(v, prev))
+            prev = v
+        rows.append(f'<tr><td class="stick l">{_esc(x["name"])} '
+                    f'<span class="dim">{_esc(x["symbol"])} {_esc(x["tf"])}</span></td>' + ''.join(cells) + '</tr>')
+    return ('<div class="h2">⚙️ Harmonogram ryzyka per bot — do końca 2026 (miesiąc → parametr)</div>'
+            '<div class="note">Ryzyko %/bota w każdym miesiącu aż do grudnia — to <b>jedyny parametr, który '
+            'zmienia się miesięcznie</b>; reszta stała (pełne arkusze: <code>FORWARD_962/ftmo_swing_80k</code>, '
+            'plik per bot). <b>OFF</b> = zatrzymaj instancję na ten miesiąc. Zielone 0.33% / żółte 0.20% / OFF; '
+            'ramka = zmiana vs poprzedni miesiąc. Konto startuje w sierpniu. Plan z symulacji Swing wyżej.</div>'
+            '<div class="scroll"><table class="grid tl"><thead>' + head + '</thead><tbody>'
             + ''.join(rows) + '</tbody></table></div>')
 
 
@@ -626,6 +623,7 @@ table.tl{{min-width:100%}}
 .grid td.rk.full{{background:rgba(38,166,154,.25);color:#7fd8cc;font-weight:600}}
 .grid td.rk.red{{background:rgba(232,199,102,.20);color:#e8c766}}
 .grid td.rk.off{{color:#4a4e59}}
+.grid td.rk.chg{{box-shadow:inset 2px 0 0 #8fa7ff}}
 .grid td.wk,.grid th.wk{{min-width:22px;text-align:center;padding:3px 2px}}
 .grid td.hc{{color:#f0f2f4}}
 .grid td.hc .v{{font-weight:600}}
