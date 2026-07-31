@@ -455,8 +455,15 @@ def render_weekly(lw, cot):
     h2 = ['<tr class="hd">'] + [f'<th class="wk{" ynew" if w.day <= 7 else ""}">{w.day}</th>' for w in weeks] + ['</tr>']
 
     lw_rows = [('gold', '🥇 Złoto (LW)'), ('sp_djia', '📈 S&P/DJIA (LW)'), ('usd', '💵 USD (LW)'),
-               ('oil', '🛢 Ropa (LW)'), ('bonds', '🏦 Obligacje TLT (LW)'), ('btc', '₿ Bitcoin (LW)')]
-    cot_rows = [('gold', '🥇 Złoto — COT spek.'), ('nasdaq', '📈 Nasdaq — COT spek.'), ('jpy', '💴 JPY — COT spek.')]
+               ('oil', '🛢 Ropa (LW)'), ('bonds', '🏦 Obligacje TLT (LW)'), ('reits', '🏠 Nieruchomości (LW)'),
+               ('btc', '₿ Bitcoin (LW)')]
+    cot_rows = [('gold', '🥇 Złoto — COT'), ('silver', '🥈 Srebro — COT'), ('platinum', '⚪ Platyna — COT'),
+                ('palladium', '⚫ Pallad — COT'), ('copper', '🟫 Miedź — COT'), ('sp500', '📈 S&P 500 — COT'),
+                ('nasdaq', '📈 Nasdaq — COT'), ('nikkei', '🗾 Nikkei — COT'), ('wti', '🛢 Ropa WTI — COT'),
+                ('bonds', '🏦 Obligacje 10Y — COT'), ('dxy', '💵 Dollar Index — COT'), ('jpy', '💴 JPY — COT'),
+                ('eur', '💶 EUR — COT'), ('gbp', '💷 GBP — COT'), ('aud', '🇦🇺 AUD — COT'),
+                ('cocoa', '🍫 Kakao — COT'), ('coffee', '☕ Kawa — COT'), ('btc', '₿ Bitcoin — COT')]
+    cot_rows = [r for r in cot_rows if cotm.get(r[0]) and not cotm[r[0]].get('error')]
     body = []
     for key, lab in lw_rows:
         body.append('<tr><td class="stick l">' + lab + '</td>' + ''.join(sg(wsig(key, i)) for i in range(52)) + '</tr>')

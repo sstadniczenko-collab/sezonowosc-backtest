@@ -23,9 +23,24 @@ BASE = "https://publicreporting.cftc.gov/resource/6dca-aqww.json"
 OUT = r"Y:\15_AI\02_TRADING\sezonowosc_backtest\data\cot_seasonal.json"
 
 MARKETS = {
-    "gold":   ("Złoto (COMEX GC)",        "GOLD - COMMODITY EXCHANGE INC."),
-    "nasdaq": ("Nasdaq-100 (E-mini CME)", "NASDAQ-100 STOCK INDEX (MINI) - CHICAGO MERCANTILE EXCHANGE"),
-    "jpy":    ("Jen japoński (CME)",      "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE"),
+    "gold":     ("Złoto (COMEX)",           "GOLD - COMMODITY EXCHANGE INC."),
+    "silver":   ("Srebro (COMEX)",          "SILVER - COMMODITY EXCHANGE INC."),
+    "platinum": ("Platyna (NYMEX)",         "PLATINUM - NEW YORK MERCANTILE EXCHANGE"),
+    "palladium":("Pallad (NYMEX)",          "PALLADIUM - NEW YORK MERCANTILE EXCHANGE"),
+    "copper":   ("Miedź (COMEX)",           "COPPER- #1 - COMMODITY EXCHANGE INC."),
+    "sp500":    ("S&P 500 (E-mini CME)",    "E-MINI S&P 500 STOCK INDEX - CHICAGO MERCANTILE EXCHANGE"),
+    "nasdaq":   ("Nasdaq-100 (E-mini CME)", "NASDAQ-100 STOCK INDEX (MINI) - CHICAGO MERCANTILE EXCHANGE"),
+    "nikkei":   ("Nikkei 225 (CME)",        "NIKKEI STOCK AVERAGE - CHICAGO MERCANTILE EXCHANGE"),
+    "wti":      ("Ropa WTI (NYMEX)",        "CRUDE OIL, LIGHT SWEET - NEW YORK MERCANTILE EXCHANGE"),
+    "bonds":    ("Obligacje 10Y (CBOT)",    "10-YEAR U.S. TREASURY NOTES - CHICAGO BOARD OF TRADE"),
+    "dxy":      ("Dollar Index (ICE)",      "U.S. DOLLAR INDEX - ICE FUTURES U.S."),
+    "jpy":      ("Jen (CME)",               "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE"),
+    "eur":      ("Euro (CME)",              "EURO FX - CHICAGO MERCANTILE EXCHANGE"),
+    "gbp":      ("Funt (CME)",              "BRITISH POUND STERLING - CHICAGO MERCANTILE EXCHANGE"),
+    "aud":      ("Dolar AUD (CME)",         "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE"),
+    "cocoa":    ("Kakao (ICE US)",          "COCOA - ICE FUTURES U.S."),
+    "coffee":   ("Kawa C (ICE US)",         "COFFEE C - ICE FUTURES U.S."),
+    "btc":      ("Bitcoin (CME)",           "BITCOIN - CHICAGO MERCANTILE EXCHANGE"),
 }
 FIELDS = ("report_date_as_yyyy_mm_dd,noncomm_positions_long_all,"
           "noncomm_positions_short_all,comm_positions_long_all,comm_positions_short_all")
