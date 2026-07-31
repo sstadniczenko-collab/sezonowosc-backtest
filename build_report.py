@@ -128,10 +128,19 @@ def render_section(monthly_bt, lw, cot):
     brows = []
     for t, d in order:
         bm = d['by_month']
+        # lata pokryte poprawnym backtestem (segment bez błędu) — reszta = brak danych (×)
+        cover = set()
+        for yr, seg in (d.get('segs') or {}).items():
+            if not seg.get('error'):
+                cover.add('2026' if yr == '2026H1' else yr[:4])
         sc = max((abs(bm.get(mk, 0.0)) for mk in axis), default=1.0) or 1.0
         r = [f'<td class="stick l">{d.get("name", t)} <span class="dim">{d.get("symbol","")} {d.get("tf","")}</span></td>']
         for mk in axis:
-            r.append(_mcell(bm.get(mk, 0.0), sc, None, int(mk[5:7]) == 1))
+            mnew = int(mk[5:7]) == 1
+            if cover and mk[:4] not in cover:
+                r.append(f'<td class="m nd{" ynew" if mnew else ""}" title="brak danych (segment nie policzony / timeout)">×</td>')
+            else:
+                r.append(_mcell(bm.get(mk, 0.0), sc, None, mnew))
         tot = sum(d.get('by_year', {}).values())
         r.append(_num(tot) + _num(tot / BASE * 100, pct=True))
         brows.append('<tr>' + ''.join(r) + '</tr>')
@@ -212,9 +221,12 @@ def render_section(monthly_bt, lw, cot):
               'Każdy bot na bazie 10 000 €, ryzyko wg USTAWIENIA_FORWARD. '
               'W komórce Portfela: net € + <b style="color:#ffb3ab">▼max DD</b> konta w tym miesiącu.</div>'
               '<div class="note">Kolory intensywność ∝ wielkość <b>w obrębie wiersza</b> (każdy bot skalowany '
-              'do siebie — widać jego własny rytm). <b>·</b> = brak transakcji. Miesiące <b>sprzed 2023 '
-              'niedostępne</b> (dane brokera m1 od ~2023) → oś to ~3,5 roku = cross-check, nie twardy wzorzec; '
-              'głębszą historię dają nakładki <b>COT</b>/<b>LW</b> niżej. Przewiń oś w bok (suwak).</div>')
+              'do siebie — widać jego własny rytm). <b>·</b> = był handel w tym roku, ale brak transakcji w '
+              'tym miesiącu (normalne dla rzadkich botów: grt/jpy ~15–25 tr./rok). '
+              '<b style="color:#c98a8a">×</b> = brak danych (segment nie policzony — np. <b>DAX 2023</b>: '
+              'GER40 na m1 timeoutuje, do retry z dłuższym limitem). Miesiące <b>sprzed 2023 niedostępne</b> '
+              '(dane brokera m1 od ~2023) → oś to ~3,5 roku = cross-check; głębszą historię dają nakładki '
+              '<b>COT</b>/<b>LW</b> niżej. Przewiń oś w bok (suwak).</div>')
     return banner + timeline + year_tbl + seasonal
 
 
@@ -242,6 +254,7 @@ table.tl{{min-width:100%}}
 .grid td.m,.grid th.m{{padding:3px 5px;min-width:34px;text-align:right}}
 .grid th.m{{text-align:right}}
 .grid td.z{{color:#3d414b}}
+.grid td.nd{{color:#c98a8a;text-align:center;background:repeating-linear-gradient(45deg,#241a1a,#241a1a 3px,#1c1616 3px,#1c1616 6px)}}
 .grid td.hc{{color:#f0f2f4}}
 .grid td.hc .v{{font-weight:600}}
 .grid td.hc.b{{font-weight:700}}
