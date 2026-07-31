@@ -143,62 +143,88 @@ def render_section(monthly_bt, lw, cot):
             if pr.get(pk) is not None:
                 port_pred[pk] += pr[pk]
 
-    # ── OŚ CZASU (pozioma, przewijalna) ──
-    yr_cnt = {y: sum(1 for mk in axis if mk[:4] == y) for y in years}
-    yr_net = {y: sum(port[mk] for mk in axis if mk[:4] == y) for y in years}
+    # ── OŚ CZASU z podsumowaniem Σ€/% PO KAŻDYM roku ──
+    year_months = {y: [mk for mk in axis if mk[:4] == y] for y in years}
+    yr_net = {y: sum(port[mk] for mk in year_months[y]) for y in years}
+    yr_active = {y: sum(1 for _, d in bots.items() if any(k[:4] == y for k in d['by_month'])) for y in years}
+
+    def sc2(eur, pct, cls='ys'):
+        if eur is None:
+            return f'<td class="num {cls} dim">—</td><td class="num {cls} dim">—</td>'
+        ec = '#26a69a' if eur > 0 else ('#ef5350' if eur < 0 else '#787b86')
+        pc = '#26a69a' if (pct or 0) > 0 else ('#ef5350' if (pct or 0) < 0 else '#787b86')
+        return (f'<td class="num {cls}" style="color:{ec};font-weight:700">{eur:+.0f}</td>'
+                f'<td class="num {cls}" style="color:{pc};font-weight:700">{pct:+.0f}%</td>')
+
     h1 = ['<tr class="hd"><th class="stick l" rowspan="2">Strumień</th>']
     for y in years:
-        col = '#26a69a' if yr_net[y] > 0 else '#ef5350'
-        h1.append(f'<th colspan="{yr_cnt[y]}" class="ynew ygrp">{y} · '
-                  f'<span style="color:{col}">{yr_net[y]:+.0f}€</span></th>')
+        h1.append(f'<th colspan="{len(year_months[y])+2}" class="ynew ygrp">{y}</th>')
     if PRED:
-        h1.append(f'<th colspan="{len(PRED)}" class="predgrp">🔮 PROGNOZA LW →</th>')
-    h1.append('<th rowspan="2">Razem €</th><th rowspan="2">%</th></tr>')
+        h1.append(f'<th colspan="{len(PRED)+2}" class="predgrp">🔮 PROGNOZA LW (Sie–Gru 2026)</th>')
+    h1.append('<th colspan="2" class="ygrp grand">CAŁOŚĆ</th></tr>')
     h2 = ['<tr class="hd">']
-    for mk in axis:
-        m = int(mk[5:7])
-        h2.append(f'<th class="m{" ynew" if m == 1 else ""}">{MONTHS_PL[m-1]}</th>')
+    for y in years:
+        for mk in year_months[y]:
+            m = int(mk[5:7])
+            h2.append(f'<th class="m{" ynew" if m == 1 else ""}">{MONTHS_PL[m-1]}</th>')
+        h2.append('<th class="ys">Σ€</th><th class="ys">%</th>')
     for i, pk in enumerate(PRED):
         h2.append(f'<th class="m pred{" pstart" if i == 0 else ""}">{MONTHS_PL[int(pk[5:7])-1]}*</th>')
-    h2.append('</tr>')
+    if PRED:
+        h2.append('<th class="ys pred">Σ€</th><th class="ys pred">%</th>')
+    h2.append('<th class="ys grand">Σ€</th><th class="ys grand">%</th></tr>')
 
-    # portfel row
+    # portfel
     pscale = max((abs(port[mk]) for mk in axis), default=1.0) or 1.0
     prow = ['<tr class="port"><td class="stick l b">📊 Portfel (Σ)</td>']
-    for mk in axis:
-        prow.append(_mcell(port[mk], pscale, dd.get(mk), int(mk[5:7]) == 1))
+    for y in years:
+        for mk in year_months[y]:
+            prow.append(_mcell(port[mk], pscale, dd.get(mk), int(mk[5:7]) == 1))
+        prow.append(sc2(yr_net[y], yr_net[y] / (yr_active[y] * BASE) * 100 if yr_active[y] else 0))
     for i, pk in enumerate(PRED):
         prow.append(_pcell(port_pred.get(pk), i == 0))
-    ptot = sum(port.values())
-    prow.append(_num(ptot) + _num(ptot / (len(bots) * BASE) * 100, pct=True))
+    if PRED:
+        pe = sum(port_pred.values())
+        prow.append(sc2(pe, pe / (len(bots) * BASE) * 100, 'ys pred'))
+    gt = sum(port.values())
+    prow.append(sc2(gt, gt / (len(bots) * BASE) * 100, 'ys grand'))
     prow.append('</tr>')
 
-    # bot rows
+    # boty
     brows = []
     for t, d in order:
         bm = d['by_month']
-        # lata pokryte poprawnym backtestem (segment bez błędu) — reszta = brak danych (×)
         cover = set()
         for yr, seg in (d.get('segs') or {}).items():
             if not seg.get('error'):
                 cover.add('2026' if yr == '2026H1' else yr[:4])
         sc = max((abs(bm.get(mk, 0.0)) for mk in axis), default=1.0) or 1.0
         r = [f'<td class="stick l">{d.get("name", t)} <span class="dim">{d.get("symbol","")} {d.get("tf","")}</span></td>']
-        for mk in axis:
-            mnew = int(mk[5:7]) == 1
-            if cover and mk[:4] not in cover:
-                r.append(f'<td class="m nd{" ynew" if mnew else ""}" title="brak danych (segment nie policzony / timeout)">×</td>')
+        for y in years:
+            for mk in year_months[y]:
+                mnew = int(mk[5:7]) == 1
+                if cover and mk[:4] not in cover:
+                    r.append(f'<td class="m nd{" ynew" if mnew else ""}" title="brak danych (timeout/nie policzony)">×</td>')
+                else:
+                    r.append(_mcell(bm.get(mk, 0.0), sc, None, mnew))
+            if cover and y not in cover:
+                r.append(sc2(None, None))
             else:
-                r.append(_mcell(bm.get(mk, 0.0), sc, None, mnew))
+                ye = d.get('by_year', {}).get(y, sum(bm.get(mk, 0.0) for mk in year_months[y]))
+                r.append(sc2(ye, ye / BASE * 100))
         prb = pred_by_bot.get(t, {})
         for i, pk in enumerate(PRED):
             r.append(_pcell(prb.get(pk), i == 0))
+        if PRED:
+            pv = [v for v in prb.values() if v is not None]
+            r.append(sc2(sum(pv), sum(pv) / BASE * 100, 'ys pred') if pv else sc2(None, None, 'ys pred'))
         tot = sum(d.get('by_year', {}).values())
-        r.append(_num(tot) + _num(tot / BASE * 100, pct=True))
+        r.append(sc2(tot, tot / BASE * 100, 'ys grand'))
         brows.append('<tr>' + ''.join(r) + '</tr>')
+    ncols = len(axis) + 2 * len(years) + (len(PRED) + 2 if PRED else 0) + 2
     for t, d in errs.items():
         brows.append(f'<tr class="err"><td class="stick l">{d.get("name", t)}</td>'
-                     f'<td colspan="{len(axis)+len(PRED)+2}" style="color:#ef5350">błąd: {d.get("error")}</td></tr>')
+                     f'<td colspan="{ncols}" style="color:#ef5350">błąd: {d.get("error")}</td></tr>')
 
     timeline = ('<div class="scroll"><table class="grid tl"><thead>' + ''.join(h1) + ''.join(h2)
                 + '</thead><tbody>' + ''.join(prow) + ''.join(brows) + '</tbody></table></div>')
@@ -390,6 +416,9 @@ table.tl{{min-width:100%}}
 .grid .pstart{{border-left:3px solid #6a4a8a}}
 .grid th.predgrp{{background:#2a2440;color:#b9a0e0;text-align:center;border-left:3px solid #6a4a8a}}
 .grid td.nd2{{color:#4a4550}}
+.grid td.ys,.grid th.ys{{background:#20242e;border-left:1px solid #3a3e49;min-width:56px}}
+.grid td.ys.grand,.grid th.ys.grand{{background:#2f3440}}
+.grid td.ys.pred,.grid th.ys.pred{{background:#221c2e}}
 .grid td.hc{{color:#f0f2f4}}
 .grid td.hc .v{{font-weight:600}}
 .grid td.hc.b{{font-weight:700}}
