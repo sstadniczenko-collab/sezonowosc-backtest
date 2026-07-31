@@ -1,0 +1,1843 @@
+{
+ "account": 80000.0,
+ "wall_pct": 10.0,
+ "wall_eur": 72000.0,
+ "base_risk": 0.33,
+ "type": "SWING",
+ "n_bots": 11,
+ "order": [
+  "orb",
+  "gdep",
+  "jpy",
+  "grt",
+  "olb",
+  "daxl",
+  "turtle",
+  "ppk",
+  "trr",
+  "rsi",
+  "btfd"
+ ],
+ "bot_names": {
+  "orb": "DAX ORB",
+  "gdep": "Złoto DEP",
+  "jpy": "JPY Adaptacja",
+  "grt": "Złoto RT-HTF",
+  "olb": "DAX London Break",
+  "daxl": "DAX Sesja",
+  "turtle": "Złoto Turtle S2",
+  "ppk": "US100 PPK-Rev",
+  "trr": "Złoto Okno Azji",
+  "rsi": "US100 RSI2-Rev",
+  "btfd": "US100 BTFD (LW)"
+ },
+ "managed": {
+  "rows": [
+   {
+    "m": 1,
+    "label": "Sty",
+    "perbot": {
+     "orb": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.2,
+      "pnl": -62.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": 341.0,
+      "src": "real"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": -45.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.33,
+      "pnl": 1813.0,
+      "src": "real"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": -270.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.2,
+      "pnl": -185.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 416.0,
+      "src": "real"
+     },
+     "btfd": {
+      "risk": 0.2,
+      "pnl": -12.0,
+      "src": "pred"
+     }
+    },
+    "pnl": 1996.0,
+    "equity": 81996.0,
+    "dd_pct": 0.0,
+    "dist_wall": 9996.0,
+    "src": "real"
+   },
+   {
+    "m": 2,
+    "label": "Lut",
+    "perbot": {
+     "orb": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.2,
+      "pnl": -321.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": 596.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": 1015.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.33,
+      "pnl": 1639.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.2,
+      "pnl": -14.0,
+      "src": "pred"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": 1361.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.2,
+      "pnl": 922.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "real"
+     },
+     "btfd": {
+      "risk": 0.2,
+      "pnl": 54.0,
+      "src": "real"
+     }
+    },
+    "pnl": 5253.0,
+    "equity": 87250.0,
+    "dd_pct": 0.0,
+    "dist_wall": 15250.0,
+    "src": "real"
+   },
+   {
+    "m": 3,
+    "label": "Mar",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": -2273.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.2,
+      "pnl": 330.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": 484.0,
+      "src": "real"
+     },
+     "olb": {
+      "risk": 0.2,
+      "pnl": 8.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.2,
+      "pnl": -145.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.2,
+      "pnl": -98.0,
+      "src": "real"
+     },
+     "ppk": {
+      "risk": 0.2,
+      "pnl": -167.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 138.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.2,
+      "pnl": -128.0,
+      "src": "real"
+     }
+    },
+    "pnl": -1850.0,
+    "equity": 85399.0,
+    "dd_pct": 2.31,
+    "dist_wall": 13399.0,
+    "src": "real"
+   },
+   {
+    "m": 4,
+    "label": "Kwi",
+    "perbot": {
+     "orb": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": -905.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.2,
+      "pnl": -141.0,
+      "src": "real"
+     },
+     "olb": {
+      "risk": 0.2,
+      "pnl": 384.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.2,
+      "pnl": 79.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.2,
+      "pnl": 0.0,
+      "src": "brak"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": -546.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 179.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.2,
+      "pnl": 128.0,
+      "src": "real"
+     }
+    },
+    "pnl": -821.0,
+    "equity": 84578.0,
+    "dd_pct": 3.34,
+    "dist_wall": 12578.0,
+    "src": "real"
+   },
+   {
+    "m": 5,
+    "label": "Maj",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 754.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": -254.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.2,
+      "pnl": -33.0,
+      "src": "real"
+     },
+     "olb": {
+      "risk": 0.2,
+      "pnl": -682.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.2,
+      "pnl": 915.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.33,
+      "pnl": 335.0,
+      "src": "pred"
+     },
+     "ppk": {
+      "risk": 0.2,
+      "pnl": 176.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.2,
+      "pnl": 181.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 1.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.2,
+      "pnl": 23.0,
+      "src": "real"
+     }
+    },
+    "pnl": 1416.0,
+    "equity": 85994.0,
+    "dd_pct": 1.57,
+    "dist_wall": 13994.0,
+    "src": "real"
+   },
+   {
+    "m": 6,
+    "label": "Cze",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 130.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 1067.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": 143.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.2,
+      "pnl": 423.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.33,
+      "pnl": 396.0,
+      "src": "pred"
+     },
+     "ppk": {
+      "risk": 0.2,
+      "pnl": 857.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.33,
+      "pnl": -883.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": -282.0,
+      "src": "real"
+     },
+     "btfd": {
+      "risk": 0.33,
+      "pnl": 58.0,
+      "src": "real"
+     }
+    },
+    "pnl": 1910.0,
+    "equity": 87904.0,
+    "dd_pct": 0.0,
+    "dist_wall": 15904.0,
+    "src": "real"
+   },
+   {
+    "m": 7,
+    "label": "Lip",
+    "perbot": {
+     "orb": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.33,
+      "pnl": 1817.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 111.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": 225.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.2,
+      "pnl": -392.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.33,
+      "pnl": -148.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.2,
+      "pnl": 275.0,
+      "src": "real"
+     },
+     "ppk": {
+      "risk": 0.2,
+      "pnl": -332.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.2,
+      "pnl": 116.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 67.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.33,
+      "pnl": 41.0,
+      "src": "real"
+     }
+    },
+    "pnl": 1781.0,
+    "equity": 89684.0,
+    "dd_pct": 0.0,
+    "dist_wall": 17684.0,
+    "src": "real"
+   },
+   {
+    "m": 8,
+    "label": "Sie",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 1678.0,
+      "src": "pred"
+     },
+     "gdep": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "pred"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 190.0,
+      "src": "pred"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": 605.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": 88.0,
+      "src": "pred"
+     },
+     "daxl": {
+      "risk": 0.2,
+      "pnl": -61.0,
+      "src": "pred"
+     },
+     "turtle": {
+      "risk": 0.2,
+      "pnl": -30.0,
+      "src": "pred"
+     },
+     "ppk": {
+      "risk": 0.2,
+      "pnl": -73.0,
+      "src": "pred"
+     },
+     "trr": {
+      "risk": 0.2,
+      "pnl": -26.0,
+      "src": "pred"
+     },
+     "rsi": {
+      "risk": 0.2,
+      "pnl": -6.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.2,
+      "pnl": -5.0,
+      "src": "pred"
+     }
+    },
+    "pnl": 2360.0,
+    "equity": 92044.0,
+    "dd_pct": 0.0,
+    "dist_wall": 20044.0,
+    "src": "pred"
+   },
+   {
+    "m": 9,
+    "label": "Wrz",
+    "perbot": {
+     "orb": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "pred"
+     },
+     "gdep": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "pred"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 246.0,
+      "src": "pred"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": 50.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.2,
+      "pnl": 8.0,
+      "src": "pred"
+     },
+     "daxl": {
+      "risk": 0.2,
+      "pnl": -75.0,
+      "src": "pred"
+     },
+     "turtle": {
+      "risk": 0.2,
+      "pnl": 0.0,
+      "src": "brak"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": 167.0,
+      "src": "pred"
+     },
+     "trr": {
+      "risk": 0.33,
+      "pnl": 231.0,
+      "src": "pred"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 134.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.2,
+      "pnl": 35.0,
+      "src": "pred"
+     }
+    },
+    "pnl": 796.0,
+    "equity": 92840.0,
+    "dd_pct": 0.0,
+    "dist_wall": 20840.0,
+    "src": "pred"
+   },
+   {
+    "m": 10,
+    "label": "Paź",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 629.0,
+      "src": "pred"
+     },
+     "gdep": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "pred"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 145.0,
+      "src": "pred"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": 427.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": 1175.0,
+      "src": "pred"
+     },
+     "daxl": {
+      "risk": 0.2,
+      "pnl": -36.0,
+      "src": "pred"
+     },
+     "turtle": {
+      "risk": 0.2,
+      "pnl": -35.0,
+      "src": "pred"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": 1232.0,
+      "src": "pred"
+     },
+     "trr": {
+      "risk": 0.33,
+      "pnl": 597.0,
+      "src": "pred"
+     },
+     "rsi": {
+      "risk": 0.2,
+      "pnl": 0.0,
+      "src": "brak"
+     },
+     "btfd": {
+      "risk": 0.2,
+      "pnl": 0.0,
+      "src": "brak"
+     }
+    },
+    "pnl": 4133.0,
+    "equity": 96973.0,
+    "dd_pct": 0.0,
+    "dist_wall": 24973.0,
+    "src": "pred"
+   },
+   {
+    "m": 11,
+    "label": "Lis",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 757.0,
+      "src": "pred"
+     },
+     "gdep": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "pred"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 126.0,
+      "src": "pred"
+     },
+     "grt": {
+      "risk": 0.2,
+      "pnl": -33.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.2,
+      "pnl": -25.0,
+      "src": "pred"
+     },
+     "daxl": {
+      "risk": 0.33,
+      "pnl": 1638.0,
+      "src": "pred"
+     },
+     "turtle": {
+      "risk": 0.33,
+      "pnl": 227.0,
+      "src": "pred"
+     },
+     "ppk": {
+      "risk": 0.2,
+      "pnl": -20.0,
+      "src": "pred"
+     },
+     "trr": {
+      "risk": 0.33,
+      "pnl": 533.0,
+      "src": "pred"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 198.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.2,
+      "pnl": -9.0,
+      "src": "pred"
+     }
+    },
+    "pnl": 3392.0,
+    "equity": 100365.0,
+    "dd_pct": 0.0,
+    "dist_wall": 28365.0,
+    "src": "pred"
+   },
+   {
+    "m": 12,
+    "label": "Gru",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 1299.0,
+      "src": "pred"
+     },
+     "gdep": {
+      "risk": 0.0,
+      "pnl": 0.0,
+      "src": "pred"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 177.0,
+      "src": "pred"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": 406.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": 384.0,
+      "src": "pred"
+     },
+     "daxl": {
+      "risk": 0.33,
+      "pnl": 201.0,
+      "src": "pred"
+     },
+     "turtle": {
+      "risk": 0.2,
+      "pnl": 0.0,
+      "src": "brak"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": 362.0,
+      "src": "pred"
+     },
+     "trr": {
+      "risk": 0.33,
+      "pnl": 551.0,
+      "src": "pred"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 407.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.33,
+      "pnl": 132.0,
+      "src": "pred"
+     }
+    },
+    "pnl": 3918.0,
+    "equity": 104283.0,
+    "dd_pct": 0.0,
+    "dist_wall": 32283.0,
+    "src": "pred"
+   }
+  ],
+  "end_equity": 104283.0,
+  "ret_pct": 30.4,
+  "max_dd_pct": 3.34,
+  "min_equity": 80000.0,
+  "breach": false
+ },
+ "flat": {
+  "rows": [
+   {
+    "m": 1,
+    "label": "Sty",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 2571.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.33,
+      "pnl": 6588.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": -102.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": 341.0,
+      "src": "real"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": -45.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.33,
+      "pnl": -837.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.33,
+      "pnl": 1813.0,
+      "src": "real"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": -270.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.33,
+      "pnl": -305.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 416.0,
+      "src": "real"
+     },
+     "btfd": {
+      "risk": 0.33,
+      "pnl": -19.0,
+      "src": "pred"
+     }
+    },
+    "pnl": 10151.0,
+    "equity": 90151.0,
+    "dd_pct": 0.0,
+    "dist_wall": 18151.0,
+    "src": "real"
+   },
+   {
+    "m": 2,
+    "label": "Lut",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": -782.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.33,
+      "pnl": -2637.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": -530.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": 596.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": 1015.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.33,
+      "pnl": 1639.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.33,
+      "pnl": -23.0,
+      "src": "pred"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": 1361.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.33,
+      "pnl": 1522.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 436.0,
+      "src": "real"
+     },
+     "btfd": {
+      "risk": 0.33,
+      "pnl": 89.0,
+      "src": "real"
+     }
+    },
+    "pnl": 2687.0,
+    "equity": 92838.0,
+    "dd_pct": 0.0,
+    "dist_wall": 20838.0,
+    "src": "real"
+   },
+   {
+    "m": 3,
+    "label": "Mar",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": -2273.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.33,
+      "pnl": 4296.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 544.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": 484.0,
+      "src": "real"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": 13.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.33,
+      "pnl": -239.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.33,
+      "pnl": -162.0,
+      "src": "real"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": -275.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.33,
+      "pnl": 1156.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 138.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.33,
+      "pnl": -212.0,
+      "src": "real"
+     }
+    },
+    "pnl": 3472.0,
+    "equity": 96309.0,
+    "dd_pct": 0.0,
+    "dist_wall": 24309.0,
+    "src": "real"
+   },
+   {
+    "m": 4,
+    "label": "Kwi",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": -1645.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.33,
+      "pnl": -5545.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": -905.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": -232.0,
+      "src": "real"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": 633.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.33,
+      "pnl": 131.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.33,
+      "pnl": 0.0,
+      "src": "brak"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": -546.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.33,
+      "pnl": 246.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 179.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.33,
+      "pnl": 212.0,
+      "src": "real"
+     }
+    },
+    "pnl": -7472.0,
+    "equity": 88837.0,
+    "dd_pct": 9.34,
+    "dist_wall": 16837.0,
+    "src": "real"
+   },
+   {
+    "m": 5,
+    "label": "Maj",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 754.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.33,
+      "pnl": 8.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": -254.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": -54.0,
+      "src": "real"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": -1126.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.33,
+      "pnl": 1510.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.33,
+      "pnl": 335.0,
+      "src": "pred"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": 290.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.33,
+      "pnl": 299.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 1.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.33,
+      "pnl": 38.0,
+      "src": "real"
+     }
+    },
+    "pnl": 1800.0,
+    "equity": 90638.0,
+    "dd_pct": 7.09,
+    "dist_wall": 18638.0,
+    "src": "real"
+   },
+   {
+    "m": 6,
+    "label": "Cze",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 130.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.33,
+      "pnl": 3328.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 1067.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": 143.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": 698.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.33,
+      "pnl": -1568.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.33,
+      "pnl": 396.0,
+      "src": "pred"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": 1415.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.33,
+      "pnl": -883.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": -282.0,
+      "src": "real"
+     },
+     "btfd": {
+      "risk": 0.33,
+      "pnl": 58.0,
+      "src": "real"
+     }
+    },
+    "pnl": 4503.0,
+    "equity": 95140.0,
+    "dd_pct": 1.46,
+    "dist_wall": 23140.0,
+    "src": "real"
+   },
+   {
+    "m": 7,
+    "label": "Lip",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": -134.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.33,
+      "pnl": 1817.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 111.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": 225.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": -646.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.33,
+      "pnl": -148.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.33,
+      "pnl": 453.0,
+      "src": "real"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": -547.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.33,
+      "pnl": 191.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 67.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.33,
+      "pnl": 41.0,
+      "src": "real"
+     }
+    },
+    "pnl": 1430.0,
+    "equity": 96571.0,
+    "dd_pct": 0.0,
+    "dist_wall": 24571.0,
+    "src": "real"
+   },
+   {
+    "m": 8,
+    "label": "Sie",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 1678.0,
+      "src": "pred"
+     },
+     "gdep": {
+      "risk": 0.33,
+      "pnl": -859.0,
+      "src": "pred"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 190.0,
+      "src": "pred"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": 605.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": 88.0,
+      "src": "pred"
+     },
+     "daxl": {
+      "risk": 0.33,
+      "pnl": -101.0,
+      "src": "pred"
+     },
+     "turtle": {
+      "risk": 0.33,
+      "pnl": -49.0,
+      "src": "pred"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": -120.0,
+      "src": "pred"
+     },
+     "trr": {
+      "risk": 0.33,
+      "pnl": -42.0,
+      "src": "pred"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": -10.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.33,
+      "pnl": -9.0,
+      "src": "pred"
+     }
+    },
+    "pnl": 1370.0,
+    "equity": 97941.0,
+    "dd_pct": 0.0,
+    "dist_wall": 25941.0,
+    "src": "pred"
+   },
+   {
+    "m": 9,
+    "label": "Wrz",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": -825.0,
+      "src": "pred"
+     },
+     "gdep": {
+      "risk": 0.33,
+      "pnl": -608.0,
+      "src": "pred"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 246.0,
+      "src": "pred"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": 50.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": 13.0,
+      "src": "pred"
+     },
+     "daxl": {
+      "risk": 0.33,
+      "pnl": -124.0,
+      "src": "pred"
+     },
+     "turtle": {
+      "risk": 0.33,
+      "pnl": 0.0,
+      "src": "brak"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": 167.0,
+      "src": "pred"
+     },
+     "trr": {
+      "risk": 0.33,
+      "pnl": 231.0,
+      "src": "pred"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 134.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.33,
+      "pnl": 58.0,
+      "src": "pred"
+     }
+    },
+    "pnl": -659.0,
+    "equity": 97282.0,
+    "dd_pct": 0.82,
+    "dist_wall": 25282.0,
+    "src": "pred"
+   },
+   {
+    "m": 10,
+    "label": "Paź",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 629.0,
+      "src": "pred"
+     },
+     "gdep": {
+      "risk": 0.33,
+      "pnl": 1583.0,
+      "src": "pred"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 145.0,
+      "src": "pred"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": 427.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": 1175.0,
+      "src": "pred"
+     },
+     "daxl": {
+      "risk": 0.33,
+      "pnl": -60.0,
+      "src": "pred"
+     },
+     "turtle": {
+      "risk": 0.33,
+      "pnl": -57.0,
+      "src": "pred"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": 1232.0,
+      "src": "pred"
+     },
+     "trr": {
+      "risk": 0.33,
+      "pnl": 597.0,
+      "src": "pred"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 0.0,
+      "src": "brak"
+     },
+     "btfd": {
+      "risk": 0.33,
+      "pnl": 0.0,
+      "src": "brak"
+     }
+    },
+    "pnl": 5669.0,
+    "equity": 102952.0,
+    "dd_pct": 0.0,
+    "dist_wall": 30952.0,
+    "src": "pred"
+   },
+   {
+    "m": 11,
+    "label": "Lis",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 757.0,
+      "src": "pred"
+     },
+     "gdep": {
+      "risk": 0.33,
+      "pnl": 82.0,
+      "src": "pred"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 126.0,
+      "src": "pred"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": -54.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": -41.0,
+      "src": "pred"
+     },
+     "daxl": {
+      "risk": 0.33,
+      "pnl": 1638.0,
+      "src": "pred"
+     },
+     "turtle": {
+      "risk": 0.33,
+      "pnl": 227.0,
+      "src": "pred"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": -33.0,
+      "src": "pred"
+     },
+     "trr": {
+      "risk": 0.33,
+      "pnl": 533.0,
+      "src": "pred"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 198.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.33,
+      "pnl": -14.0,
+      "src": "pred"
+     }
+    },
+    "pnl": 3418.0,
+    "equity": 106370.0,
+    "dd_pct": 0.0,
+    "dist_wall": 34370.0,
+    "src": "pred"
+   },
+   {
+    "m": 12,
+    "label": "Gru",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 1299.0,
+      "src": "pred"
+     },
+     "gdep": {
+      "risk": 0.33,
+      "pnl": -80.0,
+      "src": "pred"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 177.0,
+      "src": "pred"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": 406.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": 384.0,
+      "src": "pred"
+     },
+     "daxl": {
+      "risk": 0.33,
+      "pnl": 201.0,
+      "src": "pred"
+     },
+     "turtle": {
+      "risk": 0.33,
+      "pnl": 0.0,
+      "src": "brak"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": 362.0,
+      "src": "pred"
+     },
+     "trr": {
+      "risk": 0.33,
+      "pnl": 551.0,
+      "src": "pred"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 407.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.33,
+      "pnl": 132.0,
+      "src": "pred"
+     }
+    },
+    "pnl": 3838.0,
+    "equity": 110208.0,
+    "dd_pct": 0.0,
+    "dist_wall": 38208.0,
+    "src": "pred"
+   }
+  ],
+  "end_equity": 110208.0,
+  "ret_pct": 37.8,
+  "max_dd_pct": 9.34,
+  "min_equity": 80000.0,
+  "breach": false
+ },
+ "rules": {
+  "orb": {
+   "name": "DAX ORB",
+   "symbol": "GER40",
+   "tf": "m5",
+   "champ_risk": 2.0,
+   "base_risk": 0.33,
+   "direction": "long/short",
+   "off_months": [
+    "Sty",
+    "Lut",
+    "Kwi",
+    "Lip",
+    "Wrz"
+   ],
+   "reduced_months": [],
+   "ftmo_note": "Swing: weekend/news OK. wysokie DD historyczne — trzymać 0.33% i OFF w słabych mies."
+  },
+  "gdep": {
+   "name": "Złoto DEP",
+   "symbol": "XAUUSD",
+   "tf": "h1",
+   "champ_risk": 2.0,
+   "base_risk": 0.33,
+   "direction": "long/short",
+   "off_months": [
+    "Sty",
+    "Lut",
+    "Mar",
+    "Kwi",
+    "Maj",
+    "Cze",
+    "Sie",
+    "Wrz",
+    "Paź",
+    "Lis",
+    "Gru"
+   ],
+   "reduced_months": [],
+   "ftmo_note": "Swing: weekend/news OK. wysokie DD historyczne — trzymać 0.33% i OFF w słabych mies."
+  },
+  "jpy": {
+   "name": "JPY Adaptacja",
+   "symbol": "USDJPY",
+   "tf": "m15",
+   "champ_risk": 1.0,
+   "base_risk": 0.33,
+   "direction": "long/short",
+   "off_months": [],
+   "reduced_months": [
+    "Sty",
+    "Lut",
+    "Mar"
+   ],
+   "ftmo_note": "Swing: weekend/news OK. standard"
+  },
+  "grt": {
+   "name": "Złoto RT-HTF",
+   "symbol": "XAUUSD",
+   "tf": "m15",
+   "champ_risk": 1.0,
+   "base_risk": 0.33,
+   "direction": "long/short",
+   "off_months": [],
+   "reduced_months": [
+    "Kwi",
+    "Maj",
+    "Lis"
+   ],
+   "ftmo_note": "Swing: weekend/news OK. standard"
+  },
+  "olb": {
+   "name": "DAX London Break",
+   "symbol": "GER40",
+   "tf": "m5",
+   "champ_risk": 1.0,
+   "base_risk": 0.33,
+   "direction": "long-only",
+   "off_months": [],
+   "reduced_months": [
+    "Mar",
+    "Kwi",
+    "Maj",
+    "Cze",
+    "Lip",
+    "Wrz",
+    "Lis"
+   ],
+   "ftmo_note": "Swing: weekend/news OK. LONG-only — wrażliwy na bearish LW. standard"
+  },
+  "daxl": {
+   "name": "DAX Sesja",
+   "symbol": "GER40",
+   "tf": "h1",
+   "champ_risk": 1.0,
+   "base_risk": 0.33,
+   "direction": "long-only",
+   "off_months": [
+    "Sty",
+    "Cze"
+   ],
+   "reduced_months": [
+    "Mar",
+    "Kwi",
+    "Maj",
+    "Sie",
+    "Wrz",
+    "Paź"
+   ],
+   "ftmo_note": "Swing: weekend/news OK. LONG-only — wrażliwy na bearish LW. standard"
+  },
+  "turtle": {
+   "name": "Złoto Turtle S2",
+   "symbol": "XAUUSD",
+   "tf": "d1",
+   "champ_risk": 1.0,
+   "base_risk": 0.33,
+   "direction": "long/short",
+   "off_months": [],
+   "reduced_months": [
+    "Lut",
+    "Mar",
+    "Kwi",
+    "Lip",
+    "Sie",
+    "Wrz",
+    "Paź",
+    "Gru"
+   ],
+   "ftmo_note": "Swing: weekend/news OK. standard"
+  },
+  "ppk": {
+   "name": "US100 PPK-Rev",
+   "symbol": "US100",
+   "tf": "m5",
+   "champ_risk": 0.5,
+   "base_risk": 0.33,
+   "direction": "long/short",
+   "off_months": [],
+   "reduced_months": [
+    "Mar",
+    "Maj",
+    "Cze",
+    "Lip",
+    "Sie",
+    "Lis"
+   ],
+   "ftmo_note": "Swing: weekend/news OK. standard"
+  },
+  "trr": {
+   "name": "Złoto Okno Azji",
+   "symbol": "XAUUSD",
+   "tf": "m1",
+   "champ_risk": 1.0,
+   "base_risk": 0.33,
+   "direction": "long/short",
+   "off_months": [
+    "Mar",
+    "Kwi"
+   ],
+   "reduced_months": [
+    "Sty",
+    "Lut",
+    "Maj",
+    "Lip",
+    "Sie"
+   ],
+   "ftmo_note": "Swing: weekend/news OK. standard"
+  },
+  "rsi": {
+   "name": "US100 RSI2-Rev",
+   "symbol": "US100",
+   "tf": "d1",
+   "champ_risk": 1.0,
+   "base_risk": 0.33,
+   "direction": "long/short",
+   "off_months": [
+    "Lut"
+   ],
+   "reduced_months": [
+    "Sie",
+    "Paź"
+   ],
+   "ftmo_note": "Swing: weekend/news OK. standard"
+  },
+  "btfd": {
+   "name": "US100 BTFD (LW)",
+   "symbol": "US100",
+   "tf": "m5",
+   "champ_risk": 1.0,
+   "base_risk": 0.33,
+   "direction": "long-only",
+   "off_months": [],
+   "reduced_months": [
+    "Sty",
+    "Lut",
+    "Mar",
+    "Kwi",
+    "Maj",
+    "Sie",
+    "Wrz",
+    "Paź",
+    "Lis"
+   ],
+   "ftmo_note": "Swing: weekend/news OK. LONG-only — wrażliwy na bearish LW. standard"
+  }
+ }
+}

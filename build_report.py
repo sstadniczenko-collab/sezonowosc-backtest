@@ -387,6 +387,76 @@ def render_forecast(fc):
             + ''.join(rows) + '</tbody></table></div>')
 
 
+def render_swing(sw):
+    if not sw:
+        return ''
+    mg, fl, order, names = sw['managed'], sw['flat'], sw['order'], sw['bot_names']
+    wall = sw['wall_eur']
+
+    def rc(r):
+        if r == 0:
+            return '<td class="rk off" title="OFF w tym miesiącu">—</td>'
+        cls = 'full' if r >= sw['base_risk'] else 'red'
+        return f'<td class="rk {cls}">{r:.2f}</td>'
+
+    h = ('<tr class="hd"><th class="stick l">Miesiąc 2026</th>'
+         + ''.join(f'<th title="{names.get(t, t)}">{t}</th>' for t in order)
+         + '<th>Δ mies. €</th><th>Equity €</th><th>DD %</th><th>do ściany €</th></tr>')
+    rows = []
+    for r in mg['rows']:
+        pc = ' pred' if r['src'] == 'pred' else ''
+        cells = ''.join(rc(r['perbot'][t]['risk']) for t in order)
+        dw = r['dist_wall']
+        ddc = '#ef5350' if r['dd_pct'] > 7 else ('#e8c766' if r['dd_pct'] > 4 else '#787b86')
+        dwc = '#26a69a' if dw > 16000 else ('#e8c766' if dw > 8000 else '#ef5350')
+        star = '*' if r['src'] == 'pred' else ''
+        rows.append(f'<tr class="{pc}"><td class="stick l">{r["label"]}{star}</td>' + cells
+                    + _num(r['pnl'])
+                    + f'<td class="num" style="color:#e8eaed;font-weight:700">{r["equity"]:,.0f}</td>'
+                    + f'<td class="num" style="color:{ddc}">{r["dd_pct"]:.1f}%</td>'
+                    + f'<td class="num" style="color:{dwc};font-weight:700">{dw:,.0f}</td></tr>')
+
+    rr = sw['rules']
+    rules_rows = []
+    for t in order:
+        x = rr[t]
+        off = ', '.join(x['off_months']) or '—'
+        red = ', '.join(x['reduced_months']) or '—'
+        rules_rows.append(
+            f'<tr><td class="l">{_esc(x["name"])} <span class="dim">{_esc(x["symbol"])} {_esc(x["tf"])}</span></td>'
+            f'<td class="l">{x["direction"]}</td>'
+            f'<td class="num">{x["champ_risk"]:.2f}→{x["base_risk"]:.2f}%</td>'
+            f'<td class="l" style="color:#ef5350">{_esc(off)}</td>'
+            f'<td class="l" style="color:#e8c766">{_esc(red)}</td>'
+            f'<td class="l dim" style="font-size:11px">{_esc(x["ftmo_note"])}</td></tr>')
+    rules_head = ('<tr class="hd"><th class="l">Bot</th><th class="l">Kierunek</th>'
+                  '<th>ryzyko champ→baza</th><th class="l">miesiące OFF</th>'
+                  '<th class="l">miesiące redukcja 0.20%</th><th class="l">warunek FTMO</th></tr>')
+
+    def verdict(x):
+        return ('#26a69a', 'OK — z buforem') if not x['breach'] and x['max_dd_pct'] < 8 else \
+               (('#e8c766', 'ryzykownie blisko ściany') if not x['breach'] else ('#ef5350', 'ŚCIANA PRZEBITA'))
+    mc, mv = verdict(mg); fc, fv = verdict(fl)
+    return (
+        '<div class="h2">🏦 Symulacja konta FTMO SWING 80 000 € — 2026 (dobór ryzyka per bot / miesiąc)</div>'
+        '<div class="note">Swing = wolno trzymać przez weekend i newsy → CAŁY portfel 11 botów (nie 3 jak Normal). '
+        f'Twarda ściana: equity nigdy ≤ <b>{wall:,.0f} €</b> (−10%). Bazowe ryzyko <b>{sw["base_risk"]}%</b>/trade '
+        '(prop, MC iter.#35). <b>Dobór</b>: bot OFF w miesiącach, gdzie historycznie (2023–25) mocno tracił; '
+        'redukcja 0.20% gdy śr &lt;0 lub LW ostrzega (long-only). H1 (sty–lip) = realny backtest, '
+        '<b>H2 (sie–gru)* = prognoza LW</b> (spekulacja). Zielone = pełne 0.33%, żółte = 0.20%, — = OFF. '
+        'Uwaga: to equity MIESIĘCZNE — dzienny limit −5% (−4000€) wymaga danych dziennych; tu proxy.</div>'
+        f'<div class="note" style="border-color:{mc}"><b style="color:{mc}">Plan zarządzany: koniec '
+        f'{mg["end_equity"]:,.0f}€ ({mg["ret_pct"]:+.1f}%), maxDD {mg["max_dd_pct"]:.1f}% → {mv}.</b> '
+        f'&nbsp;|&nbsp; <span style="color:{fc}">Flat 0.33% all-on: {fl["end_equity"]:,.0f}€ ({fl["ret_pct"]:+.1f}%), '
+        f'maxDD {fl["max_dd_pct"]:.1f}% → {fv}</span> — dobór sezonowy tnie DD (bezpieczniej), flat da więcej '
+        'ale ociera się o ścianę.</div>'
+        '<div class="scroll"><table class="grid tl"><thead>' + h + '</thead><tbody>' + ''.join(rows)
+        + '</tbody></table></div>'
+        '<div class="h2">Warunki / parametry per bot (pod tabelą)</div>'
+        '<div class="scroll"><table class="grid"><thead>' + rules_head + '</thead><tbody>'
+        + ''.join(rules_rows) + '</tbody></table></div>')
+
+
 PAGE = """<!doctype html><html lang="pl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sezonowość — backtest</title>
@@ -420,6 +490,10 @@ table.tl{{min-width:100%}}
 .grid td.ys,.grid th.ys{{background:#20242e;border-left:1px solid #3a3e49;min-width:56px}}
 .grid td.ys.grand,.grid th.ys.grand{{background:#2f3440}}
 .grid td.ys.pred,.grid th.ys.pred{{background:#221c2e}}
+.grid td.rk{{text-align:center;min-width:40px}}
+.grid td.rk.full{{background:rgba(38,166,154,.25);color:#7fd8cc;font-weight:600}}
+.grid td.rk.red{{background:rgba(232,199,102,.20);color:#e8c766}}
+.grid td.rk.off{{color:#4a4e59}}
 .grid td.hc{{color:#f0f2f4}}
 .grid td.hc .v{{font-weight:600}}
 .grid td.hc.b{{font-weight:700}}
@@ -454,7 +528,9 @@ def main():
     cot = load("cot_seasonal.json")
     corr = load("corr.json")
     fc = load("lw_forecast.json")
-    section = render_section(mbt, lw, cot) + render_corr(corr) + render_forecast(fc)
+    sw = load("ftmo_swing.json")
+    section = (render_section(mbt, lw, cot) + render_corr(corr) + render_forecast(fc)
+               + render_swing(sw))
     ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     nb = len([1 for d in (mbt or {}).values() if isinstance(d, dict) and d.get("by_month") and not d.get("error")])
     sub = (f"Oś czasu miesięcznego P&amp;L portfela {nb} botów (backtest championów) vs cykle COT / "
