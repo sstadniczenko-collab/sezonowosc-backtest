@@ -65,6 +65,15 @@ def _num(v, pct=False, bold=True, dim=False):
     return f'<td class="num" style="color:{col};font-weight:{700 if bold else 400}">{s}</td>'
 
 
+def _pcell(v, first=False):
+    """Komórka PROGNOZY (wyblakła, kursywa) — sezonowy avg × kierunek LW."""
+    ps = ' pstart' if first else ''
+    if v is None:
+        return f'<td class="m pred{ps} nd2" title="brak danych do prognozy">·</td>'
+    col = '#2e8f82' if v > 0 else ('#b0605e' if v < 0 else '#6a6e79')
+    return f'<td class="m pred{ps}" style="color:{col}"><i>{v:+.0f}</i></td>'
+
+
 def render_section(monthly_bt, lw, cot):
     bots = {t: d for t, d in (monthly_bt or {}).items()
             if isinstance(d, dict) and d.get('by_month') and not d.get('error')}
@@ -100,6 +109,40 @@ def render_section(monthly_bt, lw, cot):
     # kolejność botów wg wkładu
     order = sorted(bots.items(), key=lambda kv: -sum(kv[1].get('by_year', {}).values()))
 
+    # ── PROGNOZA LW: Sie–Gru 2026 = sezonowy avg bota × kierunek LW ──
+    PRED = [f'2026-{m:02d}' for m in range(8, 13) if f'2026-{m:02d}' not in axis]
+    LWMAP = {'gdep': 'gold', 'grt': 'gold', 'trr': 'gold', 'turtle': 'gold',
+             'daxl': 'sp_djia', 'orb': 'sp_djia', 'olb': 'sp_djia',
+             'ppk': 'sp_djia', 'btfd': 'sp_djia', 'rsi': 'sp_djia', 'jpy': 'usd'}
+    lw_assets = (lw or {}).get('assets', {})
+
+    def _sgn(x):
+        return 1 if x > 0 else (-1 if x < 0 else 0)
+
+    def pred_for(tag, d):
+        bm = d['by_month']
+        sig = lw_assets.get(LWMAP.get(tag, ''), {}).get('sig')
+        out = {}
+        for pk in PRED:
+            m = int(pk[5:7])
+            vals = [bm[f'{Y}-{m:02d}'] for Y in ('2023', '2024', '2025') if f'{Y}-{m:02d}' in bm]
+            if not vals:
+                out[pk] = None; continue
+            sa = sum(vals) / len(vals)
+            lws = ({'long': 1, 'short': -1}.get(sig[m - 1], 0)) if (sig and m - 1 < len(sig)) else 0
+            ss = _sgn(sa)
+            k = 1.0 if (lws and lws == ss) else (0.3 if (lws and lws != ss) else 0.5)
+            out[pk] = round(sa * k, 1)
+        return out
+
+    pred_by_bot, port_pred = {}, {pk: 0.0 for pk in PRED}
+    for t, d in order:
+        pr = pred_for(t, d)
+        pred_by_bot[t] = pr
+        for pk in PRED:
+            if pr.get(pk) is not None:
+                port_pred[pk] += pr[pk]
+
     # ── OŚ CZASU (pozioma, przewijalna) ──
     yr_cnt = {y: sum(1 for mk in axis if mk[:4] == y) for y in years}
     yr_net = {y: sum(port[mk] for mk in axis if mk[:4] == y) for y in years}
@@ -108,11 +151,15 @@ def render_section(monthly_bt, lw, cot):
         col = '#26a69a' if yr_net[y] > 0 else '#ef5350'
         h1.append(f'<th colspan="{yr_cnt[y]}" class="ynew ygrp">{y} · '
                   f'<span style="color:{col}">{yr_net[y]:+.0f}€</span></th>')
+    if PRED:
+        h1.append(f'<th colspan="{len(PRED)}" class="predgrp">🔮 PROGNOZA LW →</th>')
     h1.append('<th rowspan="2">Razem €</th><th rowspan="2">%</th></tr>')
     h2 = ['<tr class="hd">']
     for mk in axis:
         m = int(mk[5:7])
         h2.append(f'<th class="m{" ynew" if m == 1 else ""}">{MONTHS_PL[m-1]}</th>')
+    for i, pk in enumerate(PRED):
+        h2.append(f'<th class="m pred{" pstart" if i == 0 else ""}">{MONTHS_PL[int(pk[5:7])-1]}*</th>')
     h2.append('</tr>')
 
     # portfel row
@@ -120,6 +167,8 @@ def render_section(monthly_bt, lw, cot):
     prow = ['<tr class="port"><td class="stick l b">📊 Portfel (Σ)</td>']
     for mk in axis:
         prow.append(_mcell(port[mk], pscale, dd.get(mk), int(mk[5:7]) == 1))
+    for i, pk in enumerate(PRED):
+        prow.append(_pcell(port_pred.get(pk), i == 0))
     ptot = sum(port.values())
     prow.append(_num(ptot) + _num(ptot / (len(bots) * BASE) * 100, pct=True))
     prow.append('</tr>')
@@ -141,12 +190,15 @@ def render_section(monthly_bt, lw, cot):
                 r.append(f'<td class="m nd{" ynew" if mnew else ""}" title="brak danych (segment nie policzony / timeout)">×</td>')
             else:
                 r.append(_mcell(bm.get(mk, 0.0), sc, None, mnew))
+        prb = pred_by_bot.get(t, {})
+        for i, pk in enumerate(PRED):
+            r.append(_pcell(prb.get(pk), i == 0))
         tot = sum(d.get('by_year', {}).values())
         r.append(_num(tot) + _num(tot / BASE * 100, pct=True))
         brows.append('<tr>' + ''.join(r) + '</tr>')
     for t, d in errs.items():
         brows.append(f'<tr class="err"><td class="stick l">{d.get("name", t)}</td>'
-                     f'<td colspan="{len(axis)+2}" style="color:#ef5350">błąd: {d.get("error")}</td></tr>')
+                     f'<td colspan="{len(axis)+len(PRED)+2}" style="color:#ef5350">błąd: {d.get("error")}</td></tr>')
 
     timeline = ('<div class="scroll"><table class="grid tl"><thead>' + ''.join(h1) + ''.join(h2)
                 + '</thead><tbody>' + ''.join(prow) + ''.join(brows) + '</tbody></table></div>')
@@ -226,7 +278,11 @@ def render_section(monthly_bt, lw, cot):
               '<b style="color:#c98a8a">×</b> = brak danych (segment nie policzony — np. <b>DAX 2023</b>: '
               'GER40 na m1 timeoutuje, do retry z dłuższym limitem). Miesiące <b>sprzed 2023 niedostępne</b> '
               '(dane brokera m1 od ~2023) → oś to ~3,5 roku = cross-check; głębszą historię dają nakładki '
-              '<b>COT</b>/<b>LW</b> niżej. Przewiń oś w bok (suwak).</div>')
+              '<b>COT</b>/<b>LW</b> niżej. Przewiń oś w bok (suwak). '
+              '<b style="color:#b9a0e0">🔮 Blok PROGNOZA (Sie–Gru 2026, kursywa)</b> = '
+              'sezonowy średni bota dla danego miesiąca (2023–25) × kierunek LW '
+              '(potwierdza ×1.0 / ostrożność ×0.5 / sprzeczny ×0.3). To <b>spekulacja</b>, '
+              'nie backtest — magnituda z naszej historii, kierunek od Larry\'ego.</div>')
     return banner + timeline + year_tbl + seasonal
 
 
@@ -329,6 +385,11 @@ table.tl{{min-width:100%}}
 .grid th.m{{text-align:right}}
 .grid td.z{{color:#3d414b}}
 .grid td.nd{{color:#c98a8a;text-align:center;background:repeating-linear-gradient(45deg,#241a1a,#241a1a 3px,#1c1616 3px,#1c1616 6px)}}
+.grid td.pred,.grid th.pred{{background:#1a1622;font-style:italic}}
+.grid th.pred{{color:#b9a0e0}}
+.grid .pstart{{border-left:3px solid #6a4a8a}}
+.grid th.predgrp{{background:#2a2440;color:#b9a0e0;text-align:center;border-left:3px solid #6a4a8a}}
+.grid td.nd2{{color:#4a4550}}
 .grid td.hc{{color:#f0f2f4}}
 .grid td.hc .v{{font-weight:600}}
 .grid td.hc.b{{font-weight:700}}
