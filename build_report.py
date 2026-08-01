@@ -387,7 +387,7 @@ def render_forecast(fc):
             + ''.join(rows) + '</tbody></table></div>')
 
 
-def render_weekly(lw, cot):
+def render_weekly(lw, cot, reality):
     """Oś tygodniowa 2026 (52 tyg, przewijana): LW + COT, strzałki ▲▼~•.
     Złoto/S&P = zwroty śród-miesięczne wg dat LW; reszta = miesięczny sygnał na tygodnie."""
     if not lw:
@@ -454,30 +454,97 @@ def render_weekly(lw, cot):
     h1.append('</tr>')
     h2 = ['<tr class="hd">'] + [f'<th class="wk{" ynew" if w.day <= 7 else ""}">{w.day}</th>' for w in weeks] + ['</tr>']
 
-    lw_rows = [('gold', '🥇 Złoto (LW)'), ('sp_djia', '📈 S&P/DJIA (LW)'), ('usd', '💵 USD (LW)'),
-               ('oil', '🛢 Ropa (LW)'), ('bonds', '🏦 Obligacje TLT (LW)'), ('reits', '🏠 Nieruchomości (LW)'),
-               ('btc', '₿ Bitcoin (LW)')]
-    cot_rows = [('gold', '🥇 Złoto — COT'), ('silver', '🥈 Srebro — COT'), ('platinum', '⚪ Platyna — COT'),
-                ('palladium', '⚫ Pallad — COT'), ('copper', '🟫 Miedź — COT'), ('sp500', '📈 S&P 500 — COT'),
-                ('nasdaq', '📈 Nasdaq — COT'), ('nikkei', '🗾 Nikkei — COT'), ('wti', '🛢 Ropa WTI — COT'),
-                ('bonds', '🏦 Obligacje 10Y — COT'), ('dxy', '💵 Dollar Index — COT'), ('jpy', '💴 JPY — COT'),
-                ('eur', '💶 EUR — COT'), ('gbp', '💷 GBP — COT'), ('aud', '🇦🇺 AUD — COT'),
-                ('cocoa', '🍫 Kakao — COT'), ('coffee', '☕ Kawa — COT'), ('btc', '₿ Bitcoin — COT')]
-    cot_rows = [r for r in cot_rows if cotm.get(r[0]) and not cotm[r[0]].get('error')]
-    body = []
-    for key, lab in lw_rows:
-        body.append('<tr><td class="stick l">' + lab + '</td>' + ''.join(sg(wsig(key, i)) for i in range(52)) + '</tr>')
-    body.append('<tr><td colspan="53" class="grp">COT — sezonowa zmiana pozycji dużych spekulantów (miesięczna, na tygodnie)</td></tr>')
-    for key, lab in cot_rows:
-        body.append('<tr><td class="stick l">' + lab + '</td>' + ''.join(sg(csig(key, i)) for i in range(52)) + '</tr>')
+    rea = reality or {}
 
-    return ('<div class="h2">🗓️ Sezonowość tydzień-po-tygodniu 2026 (LW + COT) — '
-            '▲ long · ▼ short · ~ ostrożność · • neutralnie</div>'
-            '<div class="note">Oś tygodniowa całego 2026 — <b>przewiń w bok</b>. <b>Złoto i S&P/DJIA</b> mają '
-            'zwroty śród-miesięczne wg konkretnych dat LW (S&P: dołek ~16 cze, słabość sie–wrz; złoto: '
-            'pullback poł.maja–poł.sie). Pozostałe aktywa i <b>COT</b> — sygnał miesięczny rozłożony na tygodnie '
-            '(LW podaje sezonowość w skali miesiąca/zakresu, nie tygodnia — to nie fałszywa precyzja tygodniowa). '
-            'Nagłówek = miesiąc; liczba = dzień poniedziałku otwierającego tydzień.</div>'
+    def reasig(key, i):
+        r = rea.get(key)
+        if not r:
+            return (None, False)
+        mk = weeks[i].isoformat()
+        wk = r.get('weekly', {})
+        if mk in wk:
+            return (wk[mk], False)                    # realne
+        mn = r.get('monthly')
+        return (mn[mids[i].month - 1] if mn else None, True)   # predykcja
+
+    def cell(s, pred=False):
+        if not s:
+            return '<td class="wk z">–</td>'
+        mp = {'long': ('▲', '#26a69a'), 'short': ('▼', '#ef5350'),
+              'caution': ('~', '#e8c766'), 'neutral': ('•', '#787b86')}
+        ch, col = mp.get(s, ('?', '#787b86'))
+        ex = ';opacity:.5;font-style:italic' if pred else ''
+        return f'<td class="wk" style="color:{col};font-weight:700{ex}">{ch}</td>'
+
+    def dnum(s):
+        return 1 if s == 'long' else (-1 if s == 'short' else 0)
+
+    # key, label, lw_key, cot_key, reality_key, nota o cyklu
+    PACKETS = [
+        ('gold', '🥇 Złoto', 'gold', 'gold', 'gold', 'Cykl 7-letni + 44–50-miesięczny — LW: oba w fazie byczej 2026'),
+        ('spx', '📈 S&P 500', 'sp_djia', 'sp500', 'spx', 'Cykl 4-letni → dołek maj–cze 2026 (punkt kupna); Decennial „rok-6" mocny H2'),
+        ('ndx', '📈 Nasdaq 100', 'sp_djia', 'nasdaq', 'ndx', 'Jak S&P — 4-letni dołek maj–cze 2026'),
+        ('usd', '💵 USD / DXY', 'usd', 'dxy', 'usd', 'Risk-off krótkoterminowo; długoterminowo w dół (Fed tnie stopy)'),
+        ('oil', '🛢 Ropa WTI', 'oil', 'wti', 'oil', 'Cykl 10-letni → najsilniejsza fala zaczyna się późn. 2026'),
+        ('bonds', '🏦 Obligacje (TLT/10Y)', 'bonds', 'bonds', 'bonds', 'Cykl 9-letni: stopy ↓ do 2030 → obligacje strukturalnie bycze'),
+        ('btc', '₿ Bitcoin', 'btc', 'btc', 'btc', 'Cykl 4-letni (halving IV.2024) → szczyt zwykle 12–18 mies. po = 2025–26'),
+        ('reits', '🏠 Nieruchomości', 'reits', None, 'reits', 'Cykl 10-letni → dołek ~koniec 2027 (LW: short cały 2026)'),
+        ('silver', '🥈 Srebro', None, 'silver', 'silver', 'Metale — podąża za złotem, wyższa beta'),
+        ('platinum', '⚪ Platyna', None, 'platinum', 'platinum', 'Metale szlachetne/przemysłowe'),
+        ('palladium', '⚫ Pallad', None, 'palladium', 'palladium', 'Metale — cykl motoryzacyjny (katalizatory)'),
+        ('copper', '🟫 Miedź', None, 'copper', 'copper', 'Cykl przemysłowy / globalny wzrost (Dr Copper)'),
+        ('nikkei', '🗾 Nikkei', None, 'nikkei', 'nikkei', 'Koreluje z globalnymi akcjami + kurs JPY'),
+        ('jpy', '💴 JPY (jen)', None, 'jpy', 'jpy', 'FX — bezpieczna przystań; słaby przy risk-on'),
+        ('eur', '💶 EUR', None, 'eur', 'eur', 'FX'),
+        ('gbp', '💷 GBP', None, 'gbp', 'gbp', 'FX'),
+        ('aud', '🇦🇺 AUD', None, 'aud', 'aud', 'FX ryzykowna (proxy Chiny/surowce)'),
+        ('cocoa', '🍫 Kakao', None, 'cocoa', 'cocoa', 'Miękkie — pogoda/podaż (Afryka Zach.)'),
+        ('coffee', '☕ Kawa', None, 'coffee', 'coffee', 'Miękkie — pogoda/podaż (Brazylia)'),
+    ]
+
+    def has_cot(k):
+        return bool(k and cotm.get(k) and not cotm[k].get('error'))
+
+    body = []
+    for key, label, lwk, cotk, rk, cyc in PACKETS:
+        body.append(f'<tr><td colspan="53" class="pkt">{label} &nbsp; <span class="cyc">cykl: {cyc}</span></td></tr>')
+        if lwk:
+            body.append('<tr><td class="stick l sub">LW 2026</td>'
+                        + ''.join(cell(wsig(lwk, i)) for i in range(52)) + '</tr>')
+        if has_cot(cotk):
+            body.append('<tr><td class="stick l sub">COT 2026</td>'
+                        + ''.join(cell(csig(cotk, i)) for i in range(52)) + '</tr>')
+        if rk and rea.get(rk):
+            body.append('<tr><td class="stick l sub">Rzeczywistość / pred.</td>'
+                        + ''.join(cell(*reasig(rk, i)) for i in range(52)) + '</tr>')
+        agr = []
+        for i in range(52):
+            ss = []
+            if lwk:
+                ss.append(wsig(lwk, i))
+            if has_cot(cotk):
+                ss.append(csig(cotk, i))
+            if rk and rea.get(rk):
+                ss.append(reasig(rk, i)[0])
+            nz = [dnum(s) for s in ss if s and dnum(s) != 0]
+            if len(nz) >= 2 and all(x == nz[0] for x in nz):
+                up = nz[0] > 0
+                agr.append('<td class="wk" style="font-weight:800;color:{};background:rgba({},.22)">{}</td>'.format(
+                    '#26a69a' if up else '#ef5350', '38,166,154' if up else '239,83,80', '▲' if up else '▼'))
+            else:
+                agr.append('<td class="wk z">·</td>')
+        body.append('<tr><td class="stick l sub" style="color:#e8c766">✓ ZGODNOŚĆ</td>' + ''.join(agr) + '</tr>')
+
+    return ('<div class="h2">🗓️ Sezonowość 2026 tydzień-po-tygodniu — pakiety per aktywo: '
+            'LW vs COT vs Rzeczywistość — ▲ long · ▼ short · ~ ostrożność · • neutralnie</div>'
+            '<div class="note"><b>Przewiń w bok.</b> Dla każdego aktywa 3 wiersze + zgodność: '
+            '<b>LW 2026</b> (prognoza cykli Larry\'ego), <b>COT 2026</b> (sezonowa zmiana pozycji spekulantów), '
+            '<b>Rzeczywistość/pred.</b> — <b>realne</b> tygodniowe ruchy ceny sty–lip 2026, od sierpnia '
+            '<i>predykcja</i> (kursywa/wyblakłe) = sezonowy wzorzec cenowy tego aktywa. Wiersz '
+            '<b style="color:#e8c766">✓ ZGODNOŚĆ</b> = tydzień, gdzie ≥2 z 3 sygnałów wskazują ten sam kierunek '
+            '(tam sezonowość najmocniej pokrywa się z rzeczywistością). <b>Złoto/S&P</b> mają zwroty śród-miesięczne '
+            'wg dat LW; reszta LW/COT — miesięcznie na tygodnie. <b>cykl:</b> przy każdym aktywie = gdzie jesteśmy '
+            'w cyklu 4–10-letnim (wg LW). JPY/rzeczywistość = siła jena (odwrotność USDJPY).</div>'
             '<div class="scroll"><table class="grid"><thead>' + ''.join(h1) + ''.join(h2)
             + '</thead><tbody>' + ''.join(body) + '</tbody></table></div>')
 
@@ -632,6 +699,9 @@ table.tl{{min-width:100%}}
 .grid td.rk.off{{color:#4a4e59}}
 .grid td.rk.chg{{box-shadow:inset 2px 0 0 #8fa7ff}}
 .grid td.wk,.grid th.wk{{min-width:22px;text-align:center;padding:3px 2px}}
+.grid td.pkt{{padding:9px 10px 3px;background:#20242e;border-top:2px solid #3a3e49;color:#e8eaed;font-weight:700;font-size:12.5px}}
+.grid td.pkt .cyc{{color:#8fa7ff;font-weight:400;font-size:11px}}
+.grid td.sub{{padding-left:18px;color:#9aa0ad;font-size:11px}}
 .grid td.hc{{color:#f0f2f4}}
 .grid td.hc .v{{font-weight:600}}
 .grid td.hc.b{{font-weight:700}}
@@ -667,8 +737,9 @@ def main():
     corr = load("corr.json")
     fc = load("lw_forecast.json")
     sw = load("ftmo_swing.json")
+    reality = load("reality_2026.json")
     section = (render_section(mbt, lw, cot) + render_corr(corr) + render_forecast(fc)
-               + render_weekly(lw, cot) + render_swing(sw) + render_next2(sw))
+               + render_weekly(lw, cot, reality) + render_swing(sw) + render_next2(sw))
     ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     nb = len([1 for d in (mbt or {}).values() if isinstance(d, dict) and d.get("by_month") and not d.get("error")])
     sub = (f"Oś czasu miesięcznego P&amp;L portfela {nb} botów (backtest championów) vs cykle COT / "
