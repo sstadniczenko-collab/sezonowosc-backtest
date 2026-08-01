@@ -640,6 +640,7 @@ def render_swing(sw):
     if not sw:
         return ''
     mg, fl, order, names = sw['managed'], sw['flat'], sw['order'], sw['bot_names']
+    tw = sw.get('tailwind')
     wall = sw['wall_eur']
 
     def rc(r):
@@ -694,11 +695,18 @@ def render_swing(sw):
         'redukcja 0.20% gdy śr &lt;0 lub LW ostrzega (long-only). H1 (sty–lip) = realny backtest, '
         '<b>H2 (sie–gru)* = prognoza LW</b> (spekulacja). Zielone = pełne 0.33%, żółte = 0.20%, — = OFF. '
         'Uwaga: to equity MIESIĘCZNE — dzienny limit −5% (−4000€) wymaga danych dziennych; tu proxy.</div>'
-        f'<div class="note" style="border-color:{mc}"><b style="color:{mc}">Plan zarządzany: koniec '
-        f'{mg["end_equity"]:,.0f}€ ({mg["ret_pct"]:+.1f}%), maxDD {mg["max_dd_pct"]:.1f}% → {mv}.</b> '
-        f'&nbsp;|&nbsp; <span style="color:{fc}">Flat 0.33% all-on: {fl["end_equity"]:,.0f}€ ({fl["ret_pct"]:+.1f}%), '
-        f'maxDD {fl["max_dd_pct"]:.1f}% → {fv}</span> — dobór sezonowy tnie DD (bezpieczniej), flat da więcej '
-        'ale ociera się o ścianę.</div>'
+        f'<div class="note" style="border-color:{mc}">3 warianty sizingu (ten sam P&amp;L botów, różne ryzyko/mies.) '
+        '— <b>zysk/maxDD</b> = miara risk-adjusted (wyżej = lepiej):<br>'
+        f'<b style="color:{mc}">① SEZONOWY (profil bota): {mg["end_equity"]:,.0f}€ ({mg["ret_pct"]:+.1f}%), '
+        f'maxDD {mg["max_dd_pct"]:.1f}% → zysk/DD {mg["ret_pct"]/mg["max_dd_pct"]:.1f} · {mv}</b><br>'
+        f'<span style="color:{fc}">② FLAT 0.33% all-on: {fl["end_equity"]:,.0f}€ ({fl["ret_pct"]:+.1f}%), '
+        f'maxDD {fl["max_dd_pct"]:.1f}% → zysk/DD {fl["ret_pct"]/fl["max_dd_pct"]:.1f} · {fv}</span>'
+        + (f'<br><span style="color:#b9a0e0">③ TAILWIND (konsensus LW+COT+cena, boty kierunkowe ±ryzyko): '
+           f'{tw["end_equity"]:,.0f}€ ({tw["ret_pct"]:+.1f}%), maxDD {tw["max_dd_pct"]:.1f}% → '
+           f'zysk/DD {tw["ret_pct"]/tw["max_dd_pct"]:.1f} · najwięcej zysku, ale proporcjonalnie NAJWIĘCEJ '
+           'ryzyka — korelowanie z sezonowością rynku NIE poprawia risk-adjusted, tylko lewaruje.</span>'
+           if tw else '')
+        + ' <b>Wdrażamy ① SEZONOWY</b> (najlepszy zysk/DD, największy bufor do ściany). Tabela niżej = wariant ①.</div>'
         '<div class="scroll"><table class="grid tl"><thead>' + h + '</thead><tbody>' + ''.join(rows)
         + '</tbody></table></div>')
 

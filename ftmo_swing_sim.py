@@ -52,9 +52,49 @@ def load(name, *fb):
 def main():
     mbt = load("monthly_bt_results.json", os.path.join(os.path.dirname(HERE), "hts_loop"))
     lw = load("lw_seasonal.json")
+    cot = load("cot_seasonal.json")
+    reality = load("reality_2026.json")
     lwa = (lw or {}).get("assets", {})
+    cotm = (cot or {}).get("markets", {})
+    rea = reality or {}
     bots = {t: d for t, d in (mbt or {}).items()
             if isinstance(d, dict) and d.get("by_month") and not d.get("error")}
+
+    # --- konsensus RYNKU (LW+COT+cena) per aktywo/miesiąc: +1 byczo / -1 niedźwiedzio / 0 ---
+    def _d(s):
+        return 1 if s == "long" else (-1 if s == "short" else 0)
+
+    def consensus(lwk, cotk, reak, m):
+        ss = []
+        sig = lwa.get(lwk, {}).get("sig")
+        if sig:
+            ss.append(sig[m - 1])
+        c = cotm.get(cotk)
+        if c and not c.get("error"):
+            ss.append(c["sig"][m - 1])
+        r = rea.get(reak)
+        if r:
+            ss.append(r["monthly"][m - 1])
+        nz = [_d(s) for s in ss if s and _d(s) != 0]
+        bull = sum(1 for x in nz if x > 0); bear = sum(1 for x in nz if x < 0)
+        if bull >= 2 and bull > bear:
+            return 1
+        if bear >= 2 and bear > bull:
+            return -1
+        return 0
+
+    # bot -> (lwkey, cotkey, reakey) aktywa, którego konsensus go napędza (tylko kierunkowe)
+    TAILWIND = {'gdep': ('gold', 'gold', 'gold'), 'grt': ('gold', 'gold', 'gold'),
+                'trr': ('gold', 'gold', 'gold'), 'turtle': ('gold', 'gold', 'gold'),
+                'daxl': ('sp_djia', 'sp500', 'spx'), 'olb': ('sp_djia', 'sp500', 'spx'),
+                'btfd': ('sp_djia', 'nasdaq', 'ndx')}
+
+    def tailwind_risk(t, m):
+        ak = TAILWIND.get(t)
+        if not ak:
+            return BASE_R                       # nie-kierunkowe (jpy/ppk/rsi/orb) = flat
+        c = consensus(*ak, m)
+        return 0.5 if c > 0 else (0.20 if c < 0 else BASE_R)
 
     # profil sezonowy 2023–25 (ROI% przy champ risk) + prognoza H2
     def hist_roi(d, m):
@@ -95,15 +135,17 @@ def main():
 
     order = sorted(bots.items(), key=lambda kv: -sum(kv[1].get("by_year", {}).values()))
 
-    def run(managed):
-        """managed=True: plan sezonowy; False: flat 0.33 all-on."""
+    def run(mode):
+        """mode: 'managed' (sezonowy z profilu bota) / 'flat' / 'tailwind' (konsensus rynku LW+COT+cena)."""
         rows = []
         eq = ACCOUNT; peak = ACCOUNT; maxdd = 0.0; minq = ACCOUNT; breach = False
         for m in range(1, 13):
             perbot = {}; pnl_tot = 0.0
             for t, d in order:
-                if managed:
+                if mode == "managed":
                     r, _ = plan_risk(t, d, m)
+                elif mode == "tailwind":
+                    r = tailwind_risk(t, m)
                 else:
                     r = BASE_R
                 real = d["by_month"].get(f"2026-{m:02d}")
@@ -157,17 +199,18 @@ def main():
            "base_risk": BASE_R, "type": "SWING", "n_bots": len(bots),
            "order": [t for t, _ in order],
            "bot_names": {t: d.get("name", t) for t, d in order},
-           "managed": run(True), "flat": run(False), "rules": rules}
+           "managed": run("managed"), "flat": run("flat"), "tailwind": run("tailwind"),
+           "rules": rules}
     json.dump(out, open(os.path.join(DATA, "ftmo_swing.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
 
-    mg, fl = out["managed"], out["flat"]
-    print(f"FTMO SWING 80k · 2026 (H1 real + H2 prognoza LW):")
-    print(f"  ZARZĄDZANY (plan sezonowy): koniec {mg['end_equity']:.0f}€ ({mg['ret_pct']:+.1f}%), "
-          f"maxDD {mg['max_dd_pct']:.1f}%, min {mg['min_equity']:.0f}€, ściana={'PRZEBITA' if mg['breach'] else 'OK'}")
-    print(f"  FLAT 0.33 all-on:          koniec {fl['end_equity']:.0f}€ ({fl['ret_pct']:+.1f}%), "
-          f"maxDD {fl['max_dd_pct']:.1f}%, min {fl['min_equity']:.0f}€, ściana={'PRZEBITA' if fl['breach'] else 'OK'}")
-    print("  miesięczny equity (zarządzany):", " ".join(f"{r['label']}:{r['equity']:.0f}" for r in mg['rows']))
+    print("FTMO SWING 80k · 2026 (H1 real + H2 prognoza LW) — 3 warianty sizingu:")
+    for k, lab in (("managed", "SEZONOWY (profil bota)"), ("flat", "FLAT 0.33 all-on"),
+                   ("tailwind", "TAILWIND (konsensus LW+COT+cena)")):
+        r = out[k]
+        print(f"  {lab:34} koniec {r['end_equity']:.0f}€ ({r['ret_pct']:+.1f}%), "
+              f"maxDD {r['max_dd_pct']:.1f}%, min {r['min_equity']:.0f}€, "
+              f"ściana={'PRZEBITA' if r['breach'] else 'OK'}")
     print("-> data/ftmo_swing.json")
 
 

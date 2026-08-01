@@ -1633,6 +1633,807 @@
   "min_equity": 80000.0,
   "breach": false
  },
+ "tailwind": {
+  "rows": [
+   {
+    "m": 1,
+    "label": "Sty",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 2571.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.5,
+      "pnl": 9982.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": -102.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.5,
+      "pnl": 517.0,
+      "src": "real"
+     },
+     "olb": {
+      "risk": 0.5,
+      "pnl": -69.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.5,
+      "pnl": -1268.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.5,
+      "pnl": 2747.0,
+      "src": "real"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": -270.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.5,
+      "pnl": -462.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 416.0,
+      "src": "real"
+     },
+     "btfd": {
+      "risk": 0.5,
+      "pnl": -29.0,
+      "src": "pred"
+     }
+    },
+    "pnl": 14033.0,
+    "equity": 94033.0,
+    "dd_pct": 0.0,
+    "dist_wall": 22033.0,
+    "src": "real"
+   },
+   {
+    "m": 2,
+    "label": "Lut",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": -782.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.5,
+      "pnl": -3996.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": -530.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.5,
+      "pnl": 904.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.2,
+      "pnl": 615.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.2,
+      "pnl": 994.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.5,
+      "pnl": -34.0,
+      "src": "pred"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": 1361.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.5,
+      "pnl": 2306.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 436.0,
+      "src": "real"
+     },
+     "btfd": {
+      "risk": 0.5,
+      "pnl": 135.0,
+      "src": "real"
+     }
+    },
+    "pnl": 1408.0,
+    "equity": 95441.0,
+    "dd_pct": 0.0,
+    "dist_wall": 23441.0,
+    "src": "real"
+   },
+   {
+    "m": 3,
+    "label": "Mar",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": -2273.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.5,
+      "pnl": 6508.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 544.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.5,
+      "pnl": 733.0,
+      "src": "real"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": 13.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.33,
+      "pnl": -239.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.5,
+      "pnl": -245.0,
+      "src": "real"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": -275.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.5,
+      "pnl": 1751.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 138.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.33,
+      "pnl": -212.0,
+      "src": "real"
+     }
+    },
+    "pnl": 6446.0,
+    "equity": 101887.0,
+    "dd_pct": 0.0,
+    "dist_wall": 29887.0,
+    "src": "real"
+   },
+   {
+    "m": 4,
+    "label": "Kwi",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": -1645.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.5,
+      "pnl": -8401.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": -905.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.5,
+      "pnl": -352.0,
+      "src": "real"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": 633.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.33,
+      "pnl": 131.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.5,
+      "pnl": 0.0,
+      "src": "brak"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": -546.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.5,
+      "pnl": 373.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 179.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.5,
+      "pnl": 321.0,
+      "src": "real"
+     }
+    },
+    "pnl": -10212.0,
+    "equity": 91675.0,
+    "dd_pct": 12.77,
+    "dist_wall": 19675.0,
+    "src": "real"
+   },
+   {
+    "m": 5,
+    "label": "Maj",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 754.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.5,
+      "pnl": 12.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": -254.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.5,
+      "pnl": -82.0,
+      "src": "real"
+     },
+     "olb": {
+      "risk": 0.2,
+      "pnl": -682.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.2,
+      "pnl": 915.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.5,
+      "pnl": 507.0,
+      "src": "pred"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": 290.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.5,
+      "pnl": 453.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 1.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.33,
+      "pnl": 38.0,
+      "src": "real"
+     }
+    },
+    "pnl": 1951.0,
+    "equity": 93627.0,
+    "dd_pct": 10.33,
+    "dist_wall": 21627.0,
+    "src": "real"
+   },
+   {
+    "m": 6,
+    "label": "Cze",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 130.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.33,
+      "pnl": 3328.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 1067.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.33,
+      "pnl": 143.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.5,
+      "pnl": 1057.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.5,
+      "pnl": -2375.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.33,
+      "pnl": 396.0,
+      "src": "pred"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": 1415.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.33,
+      "pnl": -883.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": -282.0,
+      "src": "real"
+     },
+     "btfd": {
+      "risk": 0.5,
+      "pnl": 88.0,
+      "src": "real"
+     }
+    },
+    "pnl": 4084.0,
+    "equity": 97711.0,
+    "dd_pct": 5.22,
+    "dist_wall": 25711.0,
+    "src": "real"
+   },
+   {
+    "m": 7,
+    "label": "Lip",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": -134.0,
+      "src": "real"
+     },
+     "gdep": {
+      "risk": 0.5,
+      "pnl": 2753.0,
+      "src": "real"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 111.0,
+      "src": "real"
+     },
+     "grt": {
+      "risk": 0.5,
+      "pnl": 342.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.5,
+      "pnl": -979.0,
+      "src": "real"
+     },
+     "daxl": {
+      "risk": 0.5,
+      "pnl": -224.0,
+      "src": "real"
+     },
+     "turtle": {
+      "risk": 0.5,
+      "pnl": 687.0,
+      "src": "real"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": -547.0,
+      "src": "real"
+     },
+     "trr": {
+      "risk": 0.5,
+      "pnl": 290.0,
+      "src": "real"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 67.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.5,
+      "pnl": 62.0,
+      "src": "real"
+     }
+    },
+    "pnl": 2427.0,
+    "equity": 100138.0,
+    "dd_pct": 2.19,
+    "dist_wall": 28138.0,
+    "src": "real"
+   },
+   {
+    "m": 8,
+    "label": "Sie",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 1678.0,
+      "src": "pred"
+     },
+     "gdep": {
+      "risk": 0.5,
+      "pnl": -1302.0,
+      "src": "pred"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 190.0,
+      "src": "pred"
+     },
+     "grt": {
+      "risk": 0.5,
+      "pnl": 917.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.5,
+      "pnl": 133.0,
+      "src": "pred"
+     },
+     "daxl": {
+      "risk": 0.5,
+      "pnl": -153.0,
+      "src": "pred"
+     },
+     "turtle": {
+      "risk": 0.5,
+      "pnl": -75.0,
+      "src": "pred"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": -120.0,
+      "src": "pred"
+     },
+     "trr": {
+      "risk": 0.5,
+      "pnl": -64.0,
+      "src": "pred"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": -10.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.5,
+      "pnl": -13.0,
+      "src": "pred"
+     }
+    },
+    "pnl": 1181.0,
+    "equity": 101319.0,
+    "dd_pct": 0.71,
+    "dist_wall": 29319.0,
+    "src": "pred"
+   },
+   {
+    "m": 9,
+    "label": "Wrz",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": -825.0,
+      "src": "pred"
+     },
+     "gdep": {
+      "risk": 0.5,
+      "pnl": -922.0,
+      "src": "pred"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 246.0,
+      "src": "pred"
+     },
+     "grt": {
+      "risk": 0.5,
+      "pnl": 75.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.33,
+      "pnl": 13.0,
+      "src": "pred"
+     },
+     "daxl": {
+      "risk": 0.33,
+      "pnl": -124.0,
+      "src": "pred"
+     },
+     "turtle": {
+      "risk": 0.5,
+      "pnl": 0.0,
+      "src": "brak"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": 167.0,
+      "src": "pred"
+     },
+     "trr": {
+      "risk": 0.5,
+      "pnl": 349.0,
+      "src": "pred"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 134.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.33,
+      "pnl": 58.0,
+      "src": "pred"
+     }
+    },
+    "pnl": -828.0,
+    "equity": 100491.0,
+    "dd_pct": 1.75,
+    "dist_wall": 28491.0,
+    "src": "pred"
+   },
+   {
+    "m": 10,
+    "label": "Paź",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 629.0,
+      "src": "pred"
+     },
+     "gdep": {
+      "risk": 0.5,
+      "pnl": 2398.0,
+      "src": "pred"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 145.0,
+      "src": "pred"
+     },
+     "grt": {
+      "risk": 0.5,
+      "pnl": 646.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.5,
+      "pnl": 1781.0,
+      "src": "pred"
+     },
+     "daxl": {
+      "risk": 0.5,
+      "pnl": -91.0,
+      "src": "pred"
+     },
+     "turtle": {
+      "risk": 0.5,
+      "pnl": -87.0,
+      "src": "pred"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": 1232.0,
+      "src": "pred"
+     },
+     "trr": {
+      "risk": 0.5,
+      "pnl": 904.0,
+      "src": "pred"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 0.0,
+      "src": "brak"
+     },
+     "btfd": {
+      "risk": 0.5,
+      "pnl": 0.0,
+      "src": "brak"
+     }
+    },
+    "pnl": 7557.0,
+    "equity": 108048.0,
+    "dd_pct": 0.0,
+    "dist_wall": 36048.0,
+    "src": "pred"
+   },
+   {
+    "m": 11,
+    "label": "Lis",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 757.0,
+      "src": "pred"
+     },
+     "gdep": {
+      "risk": 0.5,
+      "pnl": 125.0,
+      "src": "pred"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 126.0,
+      "src": "pred"
+     },
+     "grt": {
+      "risk": 0.5,
+      "pnl": -82.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.5,
+      "pnl": -62.0,
+      "src": "pred"
+     },
+     "daxl": {
+      "risk": 0.5,
+      "pnl": 2482.0,
+      "src": "pred"
+     },
+     "turtle": {
+      "risk": 0.5,
+      "pnl": 343.0,
+      "src": "pred"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": -33.0,
+      "src": "pred"
+     },
+     "trr": {
+      "risk": 0.5,
+      "pnl": 807.0,
+      "src": "pred"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 198.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.5,
+      "pnl": -21.0,
+      "src": "pred"
+     }
+    },
+    "pnl": 4639.0,
+    "equity": 112687.0,
+    "dd_pct": 0.0,
+    "dist_wall": 40687.0,
+    "src": "pred"
+   },
+   {
+    "m": 12,
+    "label": "Gru",
+    "perbot": {
+     "orb": {
+      "risk": 0.33,
+      "pnl": 1299.0,
+      "src": "pred"
+     },
+     "gdep": {
+      "risk": 0.5,
+      "pnl": -121.0,
+      "src": "pred"
+     },
+     "jpy": {
+      "risk": 0.33,
+      "pnl": 177.0,
+      "src": "pred"
+     },
+     "grt": {
+      "risk": 0.5,
+      "pnl": 614.0,
+      "src": "pred"
+     },
+     "olb": {
+      "risk": 0.5,
+      "pnl": 582.0,
+      "src": "pred"
+     },
+     "daxl": {
+      "risk": 0.5,
+      "pnl": 304.0,
+      "src": "pred"
+     },
+     "turtle": {
+      "risk": 0.5,
+      "pnl": 0.0,
+      "src": "brak"
+     },
+     "ppk": {
+      "risk": 0.33,
+      "pnl": 362.0,
+      "src": "pred"
+     },
+     "trr": {
+      "risk": 0.5,
+      "pnl": 835.0,
+      "src": "pred"
+     },
+     "rsi": {
+      "risk": 0.33,
+      "pnl": 407.0,
+      "src": "pred"
+     },
+     "btfd": {
+      "risk": 0.5,
+      "pnl": 200.0,
+      "src": "pred"
+     }
+    },
+    "pnl": 4659.0,
+    "equity": 117346.0,
+    "dd_pct": 0.0,
+    "dist_wall": 45346.0,
+    "src": "pred"
+   }
+  ],
+  "end_equity": 117346.0,
+  "ret_pct": 46.7,
+  "max_dd_pct": 12.77,
+  "min_equity": 80000.0,
+  "breach": false
+ },
  "rules": {
   "orb": {
    "name": "DAX ORB",
