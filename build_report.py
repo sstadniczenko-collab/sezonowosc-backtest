@@ -387,6 +387,93 @@ def render_forecast(fc):
             + ''.join(rows) + '</tbody></table></div>')
 
 
+def render_convergence(lw, cot, reality):
+    """Panel: najbliższe okna, gdzie LW+COT+Rzeczywistość(pred) wskazują ten sam kierunek."""
+    if not lw:
+        return ''
+    from datetime import date, timedelta
+    d = date(2026, 1, 1)
+    while d.weekday() != 0:
+        d += timedelta(days=1)
+    weeks = [d + timedelta(days=7 * i) for i in range(52)]
+    mids = [w + timedelta(days=3) for w in weeks]
+    now = datetime.now(timezone.utc).date()
+    lwa = lw.get('assets', {}); cotm = (cot or {}).get('markets', {}); rea = reality or {}
+    GOLD = [(date(2026, 1, 1), 'long'), (date(2026, 5, 15), 'caution'), (date(2026, 8, 15), 'long')]
+    SPX = [(date(2026, 1, 1), 'long'), (date(2026, 2, 15), 'short'), (date(2026, 6, 16), 'long'),
+           (date(2026, 8, 31), 'caution'), (date(2026, 10, 1), 'long')]
+
+    def bp(b, dt):
+        s = None
+        for st, v in b:
+            if dt >= st:
+                s = v
+        return s
+
+    def dn(s):
+        return 1 if s == 'long' else (-1 if s == 'short' else 0)
+
+    def lwsig(k, i):
+        dt = mids[i]
+        if k == 'gold':
+            return bp(GOLD, dt)
+        if k == 'sp_djia':
+            return bp(SPX, dt)
+        sig = lwa.get(k, {}).get('sig'); return sig[dt.month - 1] if sig else None
+
+    def cotsig(k, i):
+        c = cotm.get(k)
+        if not c or c.get('error'):
+            return None
+        return c['sig'][mids[i].month - 1]
+
+    def reasig(k, i):
+        r = rea.get(k)
+        if not r:
+            return None
+        mk = weeks[i].isoformat()
+        return r['weekly'].get(mk) or r['monthly'][mids[i].month - 1]
+
+    ASSETS = [('🥇 Złoto', 'gold', 'gold', 'gold'), ('📈 S&P 500', 'sp_djia', 'sp500', 'spx'),
+              ('📈 Nasdaq', 'sp_djia', 'nasdaq', 'ndx'), ('🛢 Ropa WTI', 'oil', 'wti', 'oil'),
+              ('🏦 Obligacje', 'bonds', 'bonds', 'bonds'), ('₿ Bitcoin', 'btc', 'btc', 'btc'),
+              ('💵 USD/DXY', 'usd', 'dxy', 'usd')]
+    windows = []
+    for lab, lwk, cotk, rk in ASSETS:
+        run_dir, run_start = 0, None
+        for i in range(52):
+            if weeks[i] < now:
+                dv = 0
+            else:
+                ss = [lwsig(lwk, i), cotsig(cotk, i), reasig(rk, i)]
+                nz = [dn(s) for s in ss if s and dn(s) != 0]
+                dv = nz[0] if (len(nz) == 3 and all(x == nz[0] for x in nz)) else 0
+            if dv != run_dir:
+                if run_dir != 0:
+                    windows.append((lab, weeks[run_start], weeks[i - 1] + timedelta(days=6), run_dir, i - run_start))
+                run_dir, run_start = dv, i
+        if run_dir != 0:
+            windows.append((lab, weeks[run_start], weeks[51] + timedelta(days=6), run_dir, 52 - run_start))
+    windows.sort(key=lambda w: (w[1], -w[4]))
+    if not windows:
+        return ''
+    rows = []
+    for lab, st, en, dv, n in windows:
+        col = '#26a69a' if dv > 0 else '#ef5350'
+        arr = '▲ LONG' if dv > 0 else '▼ SHORT'
+        rows.append(f'<tr><td class="l">{lab}</td>'
+                    f'<td class="l">{st.strftime("%d.%m")} – {en.strftime("%d.%m")}</td>'
+                    f'<td class="l" style="color:{col};font-weight:700">{arr}</td>'
+                    f'<td class="num dim">{n} tyg</td></tr>')
+    return ('<div class="h2">🎯 Najbliższe okna pełnej zgodności (LW + COT + Rzeczywistość) — do końca 2026</div>'
+            '<div class="note">Tygodnie, gdzie <b>wszystkie trzy</b> źródła wskazują ten sam kierunek = '
+            'najwyższej pewności okna sezonowe. Rzeczywistość dla przyszłości = sezonowy wzorzec cenowy aktywa '
+            '(predykcja). Tylko aktywa z pełnym pakietem LW+COT+cena. Sortowanie od najbliższych.</div>'
+            '<div class="scroll"><table class="grid"><thead><tr class="hd"><th class="l">Aktywo</th>'
+            '<th class="l">Okno 2026</th><th class="l">Kierunek</th><th>tygodni</th></tr></thead><tbody>'
+            + ''.join(rows) + '</tbody></table></div>')
+
+
 def render_weekly(lw, cot, reality):
     """Oś tygodniowa 2026 (52 tyg, przewijana): LW + COT, strzałki ▲▼~•.
     Złoto/S&P = zwroty śród-miesięczne wg dat LW; reszta = miesięczny sygnał na tygodnie."""
@@ -739,7 +826,8 @@ def main():
     sw = load("ftmo_swing.json")
     reality = load("reality_2026.json")
     section = (render_section(mbt, lw, cot) + render_corr(corr) + render_forecast(fc)
-               + render_weekly(lw, cot, reality) + render_swing(sw) + render_next2(sw))
+               + render_convergence(lw, cot, reality) + render_weekly(lw, cot, reality)
+               + render_swing(sw) + render_next2(sw))
     ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     nb = len([1 for d in (mbt or {}).values() if isinstance(d, dict) and d.get("by_month") and not d.get("error")])
     sub = (f"Oś czasu miesięcznego P&amp;L portfela {nb} botów (backtest championów) vs cykle COT / "
