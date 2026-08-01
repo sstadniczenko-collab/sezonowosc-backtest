@@ -700,10 +700,7 @@ def render_swing(sw):
         f'maxDD {fl["max_dd_pct"]:.1f}% → {fv}</span> — dobór sezonowy tnie DD (bezpieczniej), flat da więcej '
         'ale ociera się o ścianę.</div>'
         '<div class="scroll"><table class="grid tl"><thead>' + h + '</thead><tbody>' + ''.join(rows)
-        + '</tbody></table></div>'
-        '<div class="h2">Warunki / parametry per bot (pod tabelą)</div>'
-        '<div class="scroll"><table class="grid"><thead>' + rules_head + '</thead><tbody>'
-        + ''.join(rules_rows) + '</tbody></table></div>')
+        + '</tbody></table></div>')
 
 
 def render_next2(sw):
