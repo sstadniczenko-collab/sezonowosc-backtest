@@ -649,22 +649,31 @@ def render_swing(sw):
         cls = 'full' if r >= sw['base_risk'] else 'red'
         return f'<td class="rk {cls}">{r:.2f}</td>'
 
-    h = ('<tr class="hd"><th class="stick l">Miesiąc 2026</th>'
-         + ''.join(f'<th title="{names.get(t, t)}">{t}</th>' for t in order)
-         + '<th>Δ mies. €</th><th>Equity €</th><th>DD %</th><th>do ściany €</th></tr>')
+    mr = mg['rows']  # 12 miesięcy
+    # boty w wierszach, miesiące w kolumnach
+    h = ('<tr class="hd"><th class="stick l">Bot / miesiąc</th>'
+         + ''.join(f'<th class="{"pred" if m >= 8 else ""}">{MONTHS_PL[m-1]}{"*" if m >= 8 else ""}</th>'
+                   for m in range(1, 13)) + '</tr>')
     rows = []
-    for r in mg['rows']:
-        pc = ' pred' if r['src'] == 'pred' else ''
-        cells = ''.join(rc(r['perbot'][t]['risk']) for t in order)
-        dw = r['dist_wall']
-        ddc = '#ef5350' if r['dd_pct'] > 7 else ('#e8c766' if r['dd_pct'] > 4 else '#787b86')
-        dwc = '#26a69a' if dw > 16000 else ('#e8c766' if dw > 8000 else '#ef5350')
-        star = '*' if r['src'] == 'pred' else ''
-        rows.append(f'<tr class="{pc}"><td class="stick l">{r["label"]}{star}</td>' + cells
-                    + _num(r['pnl'])
-                    + f'<td class="num" style="color:#e8eaed;font-weight:700">{r["equity"]:,.0f}</td>'
-                    + f'<td class="num" style="color:{ddc}">{r["dd_pct"]:.1f}%</td>'
-                    + f'<td class="num" style="color:{dwc};font-weight:700">{dw:,.0f}</td></tr>')
+    for t in order:
+        cells = ''.join(rc(mr[m - 1]['perbot'][t]['risk']) for m in range(1, 13))
+        rows.append(f'<tr><td class="stick l">{names.get(t, t)}</td>{cells}</tr>')
+    # wiersze portfela (metryki) — kolumny to miesiące
+    rows.append('<tr class="port"><td class="stick l b">Δ mies. €</td>'
+                + ''.join(_num(mr[m - 1]['pnl']).replace('class="num"', 'class="num rk"') for m in range(1, 13)) + '</tr>')
+    rows.append('<tr><td class="stick l b">Equity €</td>'
+                + ''.join(f'<td class="rk" style="color:#e8eaed;font-weight:700">{mr[m-1]["equity"]/1000:.1f}k</td>'
+                          for m in range(1, 13)) + '</tr>')
+    def _ddc(v):
+        return '#ef5350' if v > 7 else ('#e8c766' if v > 4 else '#787b86')
+    rows.append('<tr><td class="stick l b">DD %</td>'
+                + ''.join(f'<td class="rk" style="color:{_ddc(mr[m-1]["dd_pct"])}">{mr[m-1]["dd_pct"]:.1f}</td>'
+                          for m in range(1, 13)) + '</tr>')
+    def _dwc(v):
+        return '#26a69a' if v > 16000 else ('#e8c766' if v > 8000 else '#ef5350')
+    rows.append('<tr><td class="stick l b">do ściany €</td>'
+                + ''.join(f'<td class="rk" style="color:{_dwc(mr[m-1]["dist_wall"])};font-weight:600">'
+                          f'{mr[m-1]["dist_wall"]/1000:.0f}k</td>' for m in range(1, 13)) + '</tr>')
 
     rr = sw['rules']
     rules_rows = []
