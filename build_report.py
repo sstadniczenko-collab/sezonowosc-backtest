@@ -310,7 +310,7 @@ def render_section(monthly_bt, lw, cot):
               'sezonowy średni bota dla danego miesiąca (2023–25) × kierunek LW '
               '(potwierdza ×1.0 / ostrożność ×0.5 / sprzeczny ×0.3). To <b>spekulacja</b>, '
               'nie backtest — magnituda z naszej historii, kierunek od Larry\'ego.</div>')
-    return banner + timeline + year_tbl + seasonal
+    return banner + timeline + year_tbl
 
 
 def _esc(s):
