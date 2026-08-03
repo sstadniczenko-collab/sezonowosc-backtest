@@ -831,6 +831,55 @@ Wygenerowano {ts} · osobny projekt od vtrade-stats (statystyki live ≠ backtes
 </div></body></html>"""
 
 
+def render_overnight(ov):
+    if not ov or not ov.get('items'):
+        return ''
+    years = ["2024", "2025", "2026H1"]
+    deployed = set(ov.get('deployed') or [])
+
+    def roicell(y):
+        if not y:
+            return '<td class="num dim">—</td>'
+        r = y.get('roi')
+        col = '#26a69a' if r > 0 else ('#ef5350' if r < 0 else '#787b86')
+        return (f'<td class="num" style="color:{col}">{r:+.1f}%'
+                f'<div class="dd" style="color:#787b86">n{y.get("n","?")} · WR{y.get("wr","?")}</div></td>')
+
+    rows = []
+    for it in ov['items']:
+        yrs = it.get('years', {})
+        badge = (' <span style="color:#9575cd;font-weight:700">● FORWARD</span>'
+                 if it['sym'] in deployed else '')
+        if it['sym'] == 'US100':
+            role, rcol = 'RDZEŃ bucketu', '#26a69a'
+        elif it['sym'] == 'GER40':
+            role, rcol = 'dodatek / dekorelacja strefy', '#26a69a'
+        else:
+            role, rcol = 'skorelowany z US100 — nie wdrożony', '#787b86'
+        net = it.get('net_eur', 0)
+        ncol = '#26a69a' if net > 0 else '#ef5350'
+        rows.append('<tr>'
+                    + f'<td class="l b">{_esc(it["name"])} <span class="dim">{_esc(it["sym"])} · {_esc(it.get("session",""))}</span>{badge}</td>'
+                    + ''.join(roicell(yrs.get(y)) for y in years)
+                    + f'<td class="num" style="color:{ncol};font-weight:700">{net:+.0f}€</td>'
+                    + f'<td class="l" style="color:{rcol}">{role}</td></tr>')
+    head = ('<tr class="hd"><th class="l">Instrument</th>'
+            + ''.join(f'<th>{y}</th>' for y in years)
+            + '<th>net (10k)</th><th class="l">rola</th></tr>')
+    return ('<div class="h2">🌙 Overnight Anomaly — premia za trzymanie ryzyka przez noc (close→open)</div>'
+            '<div class="note">Pierwszy edge portfela spoza katalogu HTS/książkowego. LONG na zamknięciu sesji '
+            'kasowej, exit na otwarciu, bez SL/TP, ~1 trade/dobę. Backtest na <b>realnym feedzie brokera</b> '
+            '(nie yfinance), m5, <b>netto po kosztach przy spreadzie ' + str(ov.get('spread_pip', 3))
+            + 'pip</b>, per rok. n≈250/rok = pełne pokrycie (timing okienkowy v2 — v1 gubił 1/3 dni). '
+            '<b>UWAGA — to JEDEN bucket ryzyka, nie 4 strumienie:</b> US100/US500/US30 to long US-equity-beta '
+            'overnight (korelacja 0.85–0.95); GER40 dokłada inną strefę czasową. W krachu gapującym w dół obrywają '
+            'razem — to cena tej premii. Wdrożone forward (demo 1115962, risk 0.5% każdy): '
+            '<b>US100 + GER40</b> (max sensownej dekorelacji), liczone jako jeden bucket. '
+            'OOS 4–8 tyg. przed realnym kontem.</div>'
+            '<div class="scroll"><table class="grid"><thead>' + head + '</thead><tbody>'
+            + ''.join(rows) + '</tbody></table></div>')
+
+
 def main():
     mbt = load("monthly_bt_results.json", os.path.join(os.path.dirname(HERE), "hts_loop"))
     lw = load("lw_seasonal.json")
@@ -839,7 +888,8 @@ def main():
     fc = load("lw_forecast.json")
     sw = load("ftmo_swing.json")
     reality = load("reality_2026.json")
-    section = (render_section(mbt, lw, cot) + render_corr(corr) + render_forecast(fc)
+    ov = load("overnight_results.json")
+    section = (render_section(mbt, lw, cot) + render_overnight(ov) + render_corr(corr) + render_forecast(fc)
                + render_convergence(lw, cot, reality) + render_weekly(lw, cot, reality)
                + render_swing(sw) + render_next2(sw))
     ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
