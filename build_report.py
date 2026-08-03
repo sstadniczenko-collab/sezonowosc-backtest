@@ -762,13 +762,14 @@ def render_next2(sw):
             + ''.join(rows) + '</tbody></table></div>')
 
 
-def render_runplan(sw, lw, cot, reality):
+def render_runplan(sw, lw, cot, reality, mbt=None):
     """Plan jazdy na koncie live: sizing FLAT (stały co miesiąc) + projektowany
     cykl LW/COT/rynek per miesiąc jako KONTEKST (nie modulujemy wg niego)."""
     if not sw:
         return ''
     months = list(range(8, 13))  # Sie–Gru 2026 (konto startuje w sierpniu)
     order, names, base = sw['order'], sw['bot_names'], sw['base_risk']
+    bmeta = mbt or {}
     OVN = {'on100', 'onger'}
     lwa = (lw or {}).get('assets', {})
     cotm = (cot or {}).get('markets', {})
@@ -798,8 +799,13 @@ def render_runplan(sw, lw, cot, reality):
     brows = []
     for t in order:
         r = 0.50 if t in OVN else base
+        meta = bmeta.get(t, {})
+        robot, sym, tf = meta.get('robot', ''), meta.get('symbol', ''), meta.get('tf', '')
+        parts = ([robot] if robot else []) + ([' '.join(x for x in (sym, tf) if x)] if (sym or tf) else [])
+        det = ' · '.join(parts)
+        label = _esc(names.get(t, t)) + (f' <span class="dim">{_esc(det)}</span>' if det else '')
         cells = ''.join(f'<td class="rk full">{r:.2f}</td>' for _ in months)
-        brows.append(f'<tr><td class="stick l">{_esc(names.get(t, t))}</td>{cells}</tr>')
+        brows.append(f'<tr><td class="stick l">{label}</td>{cells}</tr>')
     CLASSES = [('🥇 Złoto — cykl', 'gold', 'gold', 'gold'),
                ('📊 Akcje US/DE — cykl', 'sp_djia', 'sp500', 'spx'),
                ('💵 USD/JPY — cykl', 'usd', 'dxy', 'usd')]
@@ -951,7 +957,7 @@ def main():
     ov = load("overnight_results.json")
     section = (render_section(mbt, lw, cot) + render_overnight(ov) + render_corr(corr) + render_forecast(fc)
                + render_convergence(lw, cot, reality) + render_weekly(lw, cot, reality)
-               + render_swing(sw) + render_next2(sw) + render_runplan(sw, lw, cot, reality))
+               + render_swing(sw) + render_next2(sw) + render_runplan(sw, lw, cot, reality, mbt))
     ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     nb = len([1 for d in (mbt or {}).values() if isinstance(d, dict) and d.get("by_month") and not d.get("error")])
     sub = (f"Oś czasu miesięcznego P&amp;L portfela {nb} botów (backtest championów) vs cykle COT / "
