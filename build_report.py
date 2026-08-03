@@ -762,6 +762,63 @@ def render_next2(sw):
             + ''.join(rows) + '</tbody></table></div>')
 
 
+def render_runplan(sw, lw, cot, reality):
+    """Plan jazdy na koncie live: sizing FLAT (stały co miesiąc) + projektowany
+    cykl LW/COT/rynek per miesiąc jako KONTEKST (nie modulujemy wg niego)."""
+    if not sw:
+        return ''
+    months = list(range(8, 13))  # Sie–Gru 2026 (konto startuje w sierpniu)
+    order, names, base = sw['order'], sw['bot_names'], sw['base_risk']
+    OVN = {'on100', 'onger'}
+    lwa = (lw or {}).get('assets', {})
+    cotm = (cot or {}).get('markets', {})
+    rea = reality or {}
+
+    def _d(s):
+        return 1 if s == 'long' else (-1 if s == 'short' else 0)
+
+    def cyc(lwk, cotk, reak, m):
+        parts = []
+        sig = lwa.get(lwk, {}).get('sig')
+        if sig and m - 1 < len(sig):
+            parts.append(('LW', sig[m - 1]))
+        c = cotm.get(cotk)
+        if c and c.get('sig') and not c.get('error'):
+            parts.append(('COT', c['sig'][m - 1]))
+        r = rea.get(reak)
+        if r and r.get('monthly'):
+            parts.append(('rynek', r['monthly'][m - 1]))
+        net = sum(_d(s) for _, s in parts)
+        icon, col = ('📈', '#26a69a') if net > 0 else (('📉', '#ef5350') if net < 0 else ('•', '#787b86'))
+        tip = ' · '.join(f'{k}:{s}' for k, s in parts) or 'brak danych'
+        return f'<td class="rk" style="color:{col}" title="{_esc(tip)}">{icon}</td>'
+
+    head = ('<tr class="hd"><th class="stick l">Bot / cykl</th>'
+            + ''.join(f'<th class="pred">{MONTHS_PL[m-1]}</th>' for m in months) + '</tr>')
+    brows = []
+    for t in order:
+        r = 0.50 if t in OVN else base
+        cells = ''.join(f'<td class="rk full">{r:.2f}</td>' for _ in months)
+        brows.append(f'<tr><td class="stick l">{_esc(names.get(t, t))}</td>{cells}</tr>')
+    CLASSES = [('🥇 Złoto — cykl', 'gold', 'gold', 'gold'),
+               ('📊 Akcje US/DE — cykl', 'sp_djia', 'sp500', 'spx'),
+               ('💵 USD/JPY — cykl', 'usd', 'dxy', 'usd')]
+    crows = [f'<tr class="port"><td class="stick l b" colspan="{len(months)+1}">'
+             'Projektowany cykl (LW + COT + rynek) — KONTEKST, sizingu wg niego NIE ruszamy</td></tr>']
+    for lab, lwk, cotk, reak in CLASSES:
+        crows.append(f'<tr><td class="stick l dim">{lab}</td>'
+                     + ''.join(cyc(lwk, cotk, reak, m) for m in months) + '</tr>')
+    return ('<div class="h2">🚦 Plan jazdy 2026 — jak odpalasz (FLAT) + projektowany cykl per miesiąc</div>'
+            '<div class="note"><b>Sizing STAŁY co miesiąc</b> — wszystkie boty ON, overnight 0.50%, reszta '
+            f'{base:.2f}%. NIE zmieniasz nic Sie→Gru (zielone = ryzyko %/bota). <b>Wiersze „cykl" niżej to '
+            'KONTEKST</b> — co LW/COT/rynek typuje na dany miesiąc (📈 byczo / 📉 niedźwiedzio / • mieszane; '
+            'najedź = źródła). Trzymasz je na oku, ale sizingu wg nich NIE modulujesz: sezonowość nie przenosi '
+            'się OOS (persistence 48%, walk-forward −0.76). Realne korekty dopiero po 4–8 tyg. danych z konta '
+            '7591744 — decyzje z LIVE, nie z projekcji.</div>'
+            '<div class="scroll"><table class="grid tl"><thead>' + head + '</thead><tbody>'
+            + ''.join(brows) + ''.join(crows) + '</tbody></table></div>')
+
+
 PAGE = """<!doctype html><html lang="pl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sezonowość — backtest</title>
@@ -894,7 +951,7 @@ def main():
     ov = load("overnight_results.json")
     section = (render_section(mbt, lw, cot) + render_overnight(ov) + render_corr(corr) + render_forecast(fc)
                + render_convergence(lw, cot, reality) + render_weekly(lw, cot, reality)
-               + render_swing(sw) + render_next2(sw))
+               + render_swing(sw) + render_next2(sw) + render_runplan(sw, lw, cot, reality))
     ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     nb = len([1 for d in (mbt or {}).values() if isinstance(d, dict) and d.get("by_month") and not d.get("error")])
     sub = (f"Oś czasu miesięcznego P&amp;L portfela {nb} botów (backtest championów) vs cykle COT / "
