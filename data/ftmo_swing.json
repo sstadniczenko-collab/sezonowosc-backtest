@@ -4,7 +4,7 @@
  "wall_eur": 72000.0,
  "base_risk": 0.33,
  "type": "SWING",
- "n_bots": 11,
+ "n_bots": 13,
  "order": [
   "orb",
   "gdep",
@@ -13,8 +13,10 @@
   "olb",
   "daxl",
   "turtle",
+  "on100",
   "ppk",
   "trr",
+  "onger",
   "rsi",
   "btfd"
  ],
@@ -26,8 +28,10 @@
   "olb": "DAX London Break",
   "daxl": "DAX Sesja",
   "turtle": "Złoto Turtle S2",
+  "on100": "US100 Overnight",
   "ppk": "US100 PPK-Rev",
   "trr": "Złoto Okno Azji",
+  "onger": "DAX Overnight",
   "rsi": "US100 RSI2-Rev",
   "btfd": "US100 BTFD (LW)"
  },
@@ -72,6 +76,11 @@
       "pnl": 1813.0,
       "src": "real"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": 475.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": -270.0,
@@ -80,6 +89,11 @@
      "trr": {
       "risk": 0.2,
       "pnl": -185.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": -147.0,
       "src": "real"
      },
      "rsi": {
@@ -93,10 +107,10 @@
       "src": "pred"
      }
     },
-    "pnl": 1996.0,
-    "equity": 81996.0,
+    "pnl": 2324.0,
+    "equity": 82324.0,
     "dd_pct": 0.0,
-    "dist_wall": 9996.0,
+    "dist_wall": 10324.0,
     "src": "real"
    },
    {
@@ -138,6 +152,11 @@
       "pnl": -14.0,
       "src": "pred"
      },
+     "on100": {
+      "risk": 0.2,
+      "pnl": -292.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": 1361.0,
@@ -146,6 +165,11 @@
      "trr": {
       "risk": 0.2,
       "pnl": 922.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": 254.0,
       "src": "real"
      },
      "rsi": {
@@ -159,10 +183,10 @@
       "src": "real"
      }
     },
-    "pnl": 5253.0,
-    "equity": 87250.0,
+    "pnl": 5216.0,
+    "equity": 87540.0,
     "dd_pct": 0.0,
-    "dist_wall": 15250.0,
+    "dist_wall": 15540.0,
     "src": "real"
    },
    {
@@ -204,6 +228,11 @@
       "pnl": -98.0,
       "src": "real"
      },
+     "on100": {
+      "risk": 0.2,
+      "pnl": 123.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.2,
       "pnl": -167.0,
@@ -212,6 +241,11 @@
      "trr": {
       "risk": 0.0,
       "pnl": 0.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.2,
+      "pnl": -1309.0,
       "src": "real"
      },
      "rsi": {
@@ -225,10 +259,10 @@
       "src": "real"
      }
     },
-    "pnl": -1850.0,
-    "equity": 85399.0,
-    "dd_pct": 2.31,
-    "dist_wall": 13399.0,
+    "pnl": -3037.0,
+    "equity": 84503.0,
+    "dd_pct": 3.8,
+    "dist_wall": 12503.0,
     "src": "real"
    },
    {
@@ -270,6 +304,11 @@
       "pnl": 0.0,
       "src": "brak"
      },
+     "on100": {
+      "risk": 0.2,
+      "pnl": 1669.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": -546.0,
@@ -278,6 +317,11 @@
      "trr": {
       "risk": 0.0,
       "pnl": 0.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.2,
+      "pnl": 440.0,
       "src": "real"
      },
      "rsi": {
@@ -291,10 +335,10 @@
       "src": "real"
      }
     },
-    "pnl": -821.0,
-    "equity": 84578.0,
-    "dd_pct": 3.34,
-    "dist_wall": 12578.0,
+    "pnl": 1288.0,
+    "equity": 85791.0,
+    "dd_pct": 2.19,
+    "dist_wall": 13791.0,
     "src": "real"
    },
    {
@@ -336,6 +380,11 @@
       "pnl": 335.0,
       "src": "pred"
      },
+     "on100": {
+      "risk": 0.2,
+      "pnl": 1015.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.2,
       "pnl": 176.0,
@@ -344,6 +393,11 @@
      "trr": {
       "risk": 0.2,
       "pnl": 181.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.2,
+      "pnl": 653.0,
       "src": "real"
      },
      "rsi": {
@@ -357,10 +411,10 @@
       "src": "real"
      }
     },
-    "pnl": 1416.0,
-    "equity": 85994.0,
-    "dd_pct": 1.57,
-    "dist_wall": 13994.0,
+    "pnl": 3084.0,
+    "equity": 88875.0,
+    "dd_pct": 0.0,
+    "dist_wall": 16875.0,
     "src": "real"
    },
    {
@@ -402,6 +456,11 @@
       "pnl": 396.0,
       "src": "pred"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": 187.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.2,
       "pnl": 857.0,
@@ -410,6 +469,11 @@
      "trr": {
       "risk": 0.33,
       "pnl": -883.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": 1206.0,
       "src": "real"
      },
      "rsi": {
@@ -423,10 +487,10 @@
       "src": "real"
      }
     },
-    "pnl": 1910.0,
-    "equity": 87904.0,
+    "pnl": 3303.0,
+    "equity": 92178.0,
     "dd_pct": 0.0,
-    "dist_wall": 15904.0,
+    "dist_wall": 20178.0,
     "src": "real"
    },
    {
@@ -468,6 +532,11 @@
       "pnl": 275.0,
       "src": "real"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": -1247.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.2,
       "pnl": -332.0,
@@ -476,6 +545,11 @@
      "trr": {
       "risk": 0.2,
       "pnl": 116.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": -667.0,
       "src": "real"
      },
      "rsi": {
@@ -489,10 +563,10 @@
       "src": "real"
      }
     },
-    "pnl": 1781.0,
-    "equity": 89684.0,
-    "dd_pct": 0.0,
-    "dist_wall": 17684.0,
+    "pnl": -134.0,
+    "equity": 92044.0,
+    "dd_pct": 0.17,
+    "dist_wall": 20044.0,
     "src": "real"
    },
    {
@@ -534,6 +608,11 @@
       "pnl": -30.0,
       "src": "pred"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": 423.0,
+      "src": "pred"
+     },
      "ppk": {
       "risk": 0.2,
       "pnl": -73.0,
@@ -542,6 +621,11 @@
      "trr": {
       "risk": 0.2,
       "pnl": -26.0,
+      "src": "pred"
+     },
+     "onger": {
+      "risk": 0.2,
+      "pnl": -18.0,
       "src": "pred"
      },
      "rsi": {
@@ -555,10 +639,10 @@
       "src": "pred"
      }
     },
-    "pnl": 2360.0,
-    "equity": 92044.0,
+    "pnl": 2766.0,
+    "equity": 94810.0,
     "dd_pct": 0.0,
-    "dist_wall": 20044.0,
+    "dist_wall": 22810.0,
     "src": "pred"
    },
    {
@@ -600,6 +684,11 @@
       "pnl": 0.0,
       "src": "brak"
      },
+     "on100": {
+      "risk": 0.2,
+      "pnl": -4.0,
+      "src": "pred"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": 167.0,
@@ -608,6 +697,11 @@
      "trr": {
       "risk": 0.33,
       "pnl": 231.0,
+      "src": "pred"
+     },
+     "onger": {
+      "risk": 0.2,
+      "pnl": 197.0,
       "src": "pred"
      },
      "rsi": {
@@ -621,10 +715,10 @@
       "src": "pred"
      }
     },
-    "pnl": 796.0,
-    "equity": 92840.0,
+    "pnl": 989.0,
+    "equity": 95799.0,
     "dd_pct": 0.0,
-    "dist_wall": 20840.0,
+    "dist_wall": 23799.0,
     "src": "pred"
    },
    {
@@ -666,6 +760,11 @@
       "pnl": -35.0,
       "src": "pred"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": 45.0,
+      "src": "pred"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": 1232.0,
@@ -674,6 +773,11 @@
      "trr": {
       "risk": 0.33,
       "pnl": 597.0,
+      "src": "pred"
+     },
+     "onger": {
+      "risk": 0.2,
+      "pnl": -25.0,
       "src": "pred"
      },
      "rsi": {
@@ -687,10 +791,10 @@
       "src": "brak"
      }
     },
-    "pnl": 4133.0,
-    "equity": 96973.0,
+    "pnl": 4153.0,
+    "equity": 99952.0,
     "dd_pct": 0.0,
-    "dist_wall": 24973.0,
+    "dist_wall": 27952.0,
     "src": "pred"
    },
    {
@@ -732,6 +836,11 @@
       "pnl": 227.0,
       "src": "pred"
      },
+     "on100": {
+      "risk": 0.2,
+      "pnl": -46.0,
+      "src": "pred"
+     },
      "ppk": {
       "risk": 0.2,
       "pnl": -20.0,
@@ -740,6 +849,11 @@
      "trr": {
       "risk": 0.33,
       "pnl": 533.0,
+      "src": "pred"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": 286.0,
       "src": "pred"
      },
      "rsi": {
@@ -753,10 +867,10 @@
       "src": "pred"
      }
     },
-    "pnl": 3392.0,
-    "equity": 100365.0,
+    "pnl": 3632.0,
+    "equity": 103583.0,
     "dd_pct": 0.0,
-    "dist_wall": 28365.0,
+    "dist_wall": 31583.0,
     "src": "pred"
    },
    {
@@ -798,6 +912,11 @@
       "pnl": 0.0,
       "src": "brak"
      },
+     "on100": {
+      "risk": 0.2,
+      "pnl": -54.0,
+      "src": "pred"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": 362.0,
@@ -806,6 +925,11 @@
      "trr": {
       "risk": 0.33,
       "pnl": 551.0,
+      "src": "pred"
+     },
+     "onger": {
+      "risk": 0.2,
+      "pnl": -51.0,
       "src": "pred"
      },
      "rsi": {
@@ -819,16 +943,16 @@
       "src": "pred"
      }
     },
-    "pnl": 3918.0,
-    "equity": 104283.0,
+    "pnl": 3813.0,
+    "equity": 107396.0,
     "dd_pct": 0.0,
-    "dist_wall": 32283.0,
+    "dist_wall": 35396.0,
     "src": "pred"
    }
   ],
-  "end_equity": 104283.0,
-  "ret_pct": 30.4,
-  "max_dd_pct": 3.34,
+  "end_equity": 107396.0,
+  "ret_pct": 34.2,
+  "max_dd_pct": 3.8,
   "min_equity": 80000.0,
   "breach": false
  },
@@ -873,6 +997,11 @@
       "pnl": 1813.0,
       "src": "real"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": 475.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": -270.0,
@@ -881,6 +1010,11 @@
      "trr": {
       "risk": 0.33,
       "pnl": -305.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": -147.0,
       "src": "real"
      },
      "rsi": {
@@ -894,10 +1028,10 @@
       "src": "pred"
      }
     },
-    "pnl": 10151.0,
-    "equity": 90151.0,
+    "pnl": 10479.0,
+    "equity": 90479.0,
     "dd_pct": 0.0,
-    "dist_wall": 18151.0,
+    "dist_wall": 18479.0,
     "src": "real"
    },
    {
@@ -939,6 +1073,11 @@
       "pnl": -23.0,
       "src": "pred"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": -482.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": 1361.0,
@@ -947,6 +1086,11 @@
      "trr": {
       "risk": 0.33,
       "pnl": 1522.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": 254.0,
       "src": "real"
      },
      "rsi": {
@@ -960,10 +1104,10 @@
       "src": "real"
      }
     },
-    "pnl": 2687.0,
-    "equity": 92838.0,
+    "pnl": 2460.0,
+    "equity": 92939.0,
     "dd_pct": 0.0,
-    "dist_wall": 20838.0,
+    "dist_wall": 20939.0,
     "src": "real"
    },
    {
@@ -1005,6 +1149,11 @@
       "pnl": -162.0,
       "src": "real"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": 202.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": -275.0,
@@ -1013,6 +1162,11 @@
      "trr": {
       "risk": 0.33,
       "pnl": 1156.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": -2160.0,
       "src": "real"
      },
      "rsi": {
@@ -1026,10 +1180,10 @@
       "src": "real"
      }
     },
-    "pnl": 3472.0,
-    "equity": 96309.0,
+    "pnl": 1514.0,
+    "equity": 94452.0,
     "dd_pct": 0.0,
-    "dist_wall": 24309.0,
+    "dist_wall": 22452.0,
     "src": "real"
    },
    {
@@ -1071,6 +1225,11 @@
       "pnl": 0.0,
       "src": "brak"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": 2754.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": -546.0,
@@ -1079,6 +1238,11 @@
      "trr": {
       "risk": 0.33,
       "pnl": 246.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": 726.0,
       "src": "real"
      },
      "rsi": {
@@ -1092,10 +1256,10 @@
       "src": "real"
      }
     },
-    "pnl": -7472.0,
-    "equity": 88837.0,
-    "dd_pct": 9.34,
-    "dist_wall": 16837.0,
+    "pnl": -3991.0,
+    "equity": 90461.0,
+    "dd_pct": 4.99,
+    "dist_wall": 18461.0,
     "src": "real"
    },
    {
@@ -1137,6 +1301,11 @@
       "pnl": 335.0,
       "src": "pred"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": 1675.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": 290.0,
@@ -1145,6 +1314,11 @@
      "trr": {
       "risk": 0.33,
       "pnl": 299.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": 1077.0,
       "src": "real"
      },
      "rsi": {
@@ -1158,10 +1332,10 @@
       "src": "real"
      }
     },
-    "pnl": 1800.0,
-    "equity": 90638.0,
-    "dd_pct": 7.09,
-    "dist_wall": 18638.0,
+    "pnl": 4553.0,
+    "equity": 95014.0,
+    "dd_pct": 0.0,
+    "dist_wall": 23014.0,
     "src": "real"
    },
    {
@@ -1203,6 +1377,11 @@
       "pnl": 396.0,
       "src": "pred"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": 187.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": 1415.0,
@@ -1211,6 +1390,11 @@
      "trr": {
       "risk": 0.33,
       "pnl": -883.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": 1206.0,
       "src": "real"
      },
      "rsi": {
@@ -1224,10 +1408,10 @@
       "src": "real"
      }
     },
-    "pnl": 4503.0,
-    "equity": 95140.0,
-    "dd_pct": 1.46,
-    "dist_wall": 23140.0,
+    "pnl": 5896.0,
+    "equity": 100910.0,
+    "dd_pct": 0.0,
+    "dist_wall": 28910.0,
     "src": "real"
    },
    {
@@ -1269,6 +1453,11 @@
       "pnl": 453.0,
       "src": "real"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": -1247.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": -547.0,
@@ -1277,6 +1466,11 @@
      "trr": {
       "risk": 0.33,
       "pnl": 191.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": -667.0,
       "src": "real"
      },
      "rsi": {
@@ -1290,10 +1484,10 @@
       "src": "real"
      }
     },
-    "pnl": 1430.0,
-    "equity": 96571.0,
-    "dd_pct": 0.0,
-    "dist_wall": 24571.0,
+    "pnl": -484.0,
+    "equity": 100425.0,
+    "dd_pct": 0.61,
+    "dist_wall": 28425.0,
     "src": "real"
    },
    {
@@ -1335,6 +1529,11 @@
       "pnl": -49.0,
       "src": "pred"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": 423.0,
+      "src": "pred"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": -120.0,
@@ -1343,6 +1542,11 @@
      "trr": {
       "risk": 0.33,
       "pnl": -42.0,
+      "src": "pred"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": -29.0,
       "src": "pred"
      },
      "rsi": {
@@ -1356,10 +1560,10 @@
       "src": "pred"
      }
     },
-    "pnl": 1370.0,
-    "equity": 97941.0,
+    "pnl": 1764.0,
+    "equity": 102190.0,
     "dd_pct": 0.0,
-    "dist_wall": 25941.0,
+    "dist_wall": 30190.0,
     "src": "pred"
    },
    {
@@ -1401,6 +1605,11 @@
       "pnl": 0.0,
       "src": "brak"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": -7.0,
+      "src": "pred"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": 167.0,
@@ -1409,6 +1618,11 @@
      "trr": {
       "risk": 0.33,
       "pnl": 231.0,
+      "src": "pred"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": 326.0,
       "src": "pred"
      },
      "rsi": {
@@ -1422,10 +1636,10 @@
       "src": "pred"
      }
     },
-    "pnl": -659.0,
-    "equity": 97282.0,
-    "dd_pct": 0.82,
-    "dist_wall": 25282.0,
+    "pnl": -340.0,
+    "equity": 101849.0,
+    "dd_pct": 0.43,
+    "dist_wall": 29849.0,
     "src": "pred"
    },
    {
@@ -1467,6 +1681,11 @@
       "pnl": -57.0,
       "src": "pred"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": 45.0,
+      "src": "pred"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": 1232.0,
@@ -1475,6 +1694,11 @@
      "trr": {
       "risk": 0.33,
       "pnl": 597.0,
+      "src": "pred"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": -41.0,
       "src": "pred"
      },
      "rsi": {
@@ -1488,10 +1712,10 @@
       "src": "brak"
      }
     },
-    "pnl": 5669.0,
-    "equity": 102952.0,
+    "pnl": 5673.0,
+    "equity": 107522.0,
     "dd_pct": 0.0,
-    "dist_wall": 30952.0,
+    "dist_wall": 35522.0,
     "src": "pred"
    },
    {
@@ -1533,6 +1757,11 @@
       "pnl": 227.0,
       "src": "pred"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": -76.0,
+      "src": "pred"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": -33.0,
@@ -1541,6 +1770,11 @@
      "trr": {
       "risk": 0.33,
       "pnl": 533.0,
+      "src": "pred"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": 286.0,
       "src": "pred"
      },
      "rsi": {
@@ -1554,10 +1788,10 @@
       "src": "pred"
      }
     },
-    "pnl": 3418.0,
-    "equity": 106370.0,
+    "pnl": 3628.0,
+    "equity": 111150.0,
     "dd_pct": 0.0,
-    "dist_wall": 34370.0,
+    "dist_wall": 39150.0,
     "src": "pred"
    },
    {
@@ -1599,6 +1833,11 @@
       "pnl": 0.0,
       "src": "brak"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": -88.0,
+      "src": "pred"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": 362.0,
@@ -1607,6 +1846,11 @@
      "trr": {
       "risk": 0.33,
       "pnl": 551.0,
+      "src": "pred"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": -85.0,
       "src": "pred"
      },
      "rsi": {
@@ -1620,16 +1864,16 @@
       "src": "pred"
      }
     },
-    "pnl": 3838.0,
-    "equity": 110208.0,
+    "pnl": 3665.0,
+    "equity": 114815.0,
     "dd_pct": 0.0,
-    "dist_wall": 38208.0,
+    "dist_wall": 42815.0,
     "src": "pred"
    }
   ],
-  "end_equity": 110208.0,
-  "ret_pct": 37.8,
-  "max_dd_pct": 9.34,
+  "end_equity": 114815.0,
+  "ret_pct": 43.5,
+  "max_dd_pct": 4.99,
   "min_equity": 80000.0,
   "breach": false
  },
@@ -1674,6 +1918,11 @@
       "pnl": 2747.0,
       "src": "real"
      },
+     "on100": {
+      "risk": 0.5,
+      "pnl": 720.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": -270.0,
@@ -1682,6 +1931,11 @@
      "trr": {
       "risk": 0.5,
       "pnl": -462.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.5,
+      "pnl": -222.0,
       "src": "real"
      },
      "rsi": {
@@ -1695,10 +1949,10 @@
       "src": "pred"
      }
     },
-    "pnl": 14033.0,
-    "equity": 94033.0,
+    "pnl": 14531.0,
+    "equity": 94531.0,
     "dd_pct": 0.0,
-    "dist_wall": 22033.0,
+    "dist_wall": 22531.0,
     "src": "real"
    },
    {
@@ -1740,6 +1994,11 @@
       "pnl": -34.0,
       "src": "pred"
      },
+     "on100": {
+      "risk": 0.5,
+      "pnl": -730.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": 1361.0,
@@ -1748,6 +2007,11 @@
      "trr": {
       "risk": 0.5,
       "pnl": 2306.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.2,
+      "pnl": 154.0,
       "src": "real"
      },
      "rsi": {
@@ -1761,10 +2025,10 @@
       "src": "real"
      }
     },
-    "pnl": 1408.0,
-    "equity": 95441.0,
+    "pnl": 833.0,
+    "equity": 95363.0,
     "dd_pct": 0.0,
-    "dist_wall": 23441.0,
+    "dist_wall": 23363.0,
     "src": "real"
    },
    {
@@ -1806,6 +2070,11 @@
       "pnl": -245.0,
       "src": "real"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": 202.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": -275.0,
@@ -1814,6 +2083,11 @@
      "trr": {
       "risk": 0.5,
       "pnl": 1751.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": -2160.0,
       "src": "real"
      },
      "rsi": {
@@ -1827,10 +2101,10 @@
       "src": "real"
      }
     },
-    "pnl": 6446.0,
-    "equity": 101887.0,
+    "pnl": 4488.0,
+    "equity": 99851.0,
     "dd_pct": 0.0,
-    "dist_wall": 29887.0,
+    "dist_wall": 27851.0,
     "src": "real"
    },
    {
@@ -1872,6 +2146,11 @@
       "pnl": 0.0,
       "src": "brak"
      },
+     "on100": {
+      "risk": 0.5,
+      "pnl": 4173.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": -546.0,
@@ -1880,6 +2159,11 @@
      "trr": {
       "risk": 0.5,
       "pnl": 373.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": 726.0,
       "src": "real"
      },
      "rsi": {
@@ -1893,10 +2177,10 @@
       "src": "real"
      }
     },
-    "pnl": -10212.0,
-    "equity": 91675.0,
-    "dd_pct": 12.77,
-    "dist_wall": 19675.0,
+    "pnl": -5313.0,
+    "equity": 94539.0,
+    "dd_pct": 6.64,
+    "dist_wall": 22539.0,
     "src": "real"
    },
    {
@@ -1938,6 +2222,11 @@
       "pnl": 507.0,
       "src": "pred"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": 1675.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": 290.0,
@@ -1946,6 +2235,11 @@
      "trr": {
       "risk": 0.5,
       "pnl": 453.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.2,
+      "pnl": 653.0,
       "src": "real"
      },
      "rsi": {
@@ -1959,10 +2253,10 @@
       "src": "real"
      }
     },
-    "pnl": 1951.0,
-    "equity": 93627.0,
-    "dd_pct": 10.33,
-    "dist_wall": 21627.0,
+    "pnl": 4280.0,
+    "equity": 98818.0,
+    "dd_pct": 1.29,
+    "dist_wall": 26818.0,
     "src": "real"
    },
    {
@@ -2004,6 +2298,11 @@
       "pnl": 396.0,
       "src": "pred"
      },
+     "on100": {
+      "risk": 0.5,
+      "pnl": 283.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": 1415.0,
@@ -2012,6 +2311,11 @@
      "trr": {
       "risk": 0.33,
       "pnl": -883.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.5,
+      "pnl": 1828.0,
       "src": "real"
      },
      "rsi": {
@@ -2025,10 +2329,10 @@
       "src": "real"
      }
     },
-    "pnl": 4084.0,
-    "equity": 97711.0,
-    "dd_pct": 5.22,
-    "dist_wall": 25711.0,
+    "pnl": 6195.0,
+    "equity": 105013.0,
+    "dd_pct": 0.0,
+    "dist_wall": 33013.0,
     "src": "real"
    },
    {
@@ -2070,6 +2374,11 @@
       "pnl": 687.0,
       "src": "real"
      },
+     "on100": {
+      "risk": 0.5,
+      "pnl": -1890.0,
+      "src": "real"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": -547.0,
@@ -2078,6 +2387,11 @@
      "trr": {
       "risk": 0.5,
       "pnl": 290.0,
+      "src": "real"
+     },
+     "onger": {
+      "risk": 0.5,
+      "pnl": -1011.0,
       "src": "real"
      },
      "rsi": {
@@ -2091,10 +2405,10 @@
       "src": "real"
      }
     },
-    "pnl": 2427.0,
-    "equity": 100138.0,
-    "dd_pct": 2.19,
-    "dist_wall": 28138.0,
+    "pnl": -475.0,
+    "equity": 104539.0,
+    "dd_pct": 0.59,
+    "dist_wall": 32539.0,
     "src": "real"
    },
    {
@@ -2136,6 +2450,11 @@
       "pnl": -75.0,
       "src": "pred"
      },
+     "on100": {
+      "risk": 0.5,
+      "pnl": 641.0,
+      "src": "pred"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": -120.0,
@@ -2144,6 +2463,11 @@
      "trr": {
       "risk": 0.5,
       "pnl": -64.0,
+      "src": "pred"
+     },
+     "onger": {
+      "risk": 0.5,
+      "pnl": -45.0,
       "src": "pred"
      },
      "rsi": {
@@ -2157,10 +2481,10 @@
       "src": "pred"
      }
     },
-    "pnl": 1181.0,
-    "equity": 101319.0,
-    "dd_pct": 0.71,
-    "dist_wall": 29319.0,
+    "pnl": 1777.0,
+    "equity": 106316.0,
+    "dd_pct": 0.0,
+    "dist_wall": 34316.0,
     "src": "pred"
    },
    {
@@ -2202,6 +2526,11 @@
       "pnl": 0.0,
       "src": "brak"
      },
+     "on100": {
+      "risk": 0.33,
+      "pnl": -7.0,
+      "src": "pred"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": 167.0,
@@ -2210,6 +2539,11 @@
      "trr": {
       "risk": 0.5,
       "pnl": 349.0,
+      "src": "pred"
+     },
+     "onger": {
+      "risk": 0.33,
+      "pnl": 326.0,
       "src": "pred"
      },
      "rsi": {
@@ -2223,10 +2557,10 @@
       "src": "pred"
      }
     },
-    "pnl": -828.0,
-    "equity": 100491.0,
-    "dd_pct": 1.75,
-    "dist_wall": 28491.0,
+    "pnl": -509.0,
+    "equity": 105807.0,
+    "dd_pct": 0.64,
+    "dist_wall": 33807.0,
     "src": "pred"
    },
    {
@@ -2268,6 +2602,11 @@
       "pnl": -87.0,
       "src": "pred"
      },
+     "on100": {
+      "risk": 0.5,
+      "pnl": 68.0,
+      "src": "pred"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": 1232.0,
@@ -2276,6 +2615,11 @@
      "trr": {
       "risk": 0.5,
       "pnl": 904.0,
+      "src": "pred"
+     },
+     "onger": {
+      "risk": 0.5,
+      "pnl": -63.0,
       "src": "pred"
      },
      "rsi": {
@@ -2289,10 +2633,10 @@
       "src": "brak"
      }
     },
-    "pnl": 7557.0,
-    "equity": 108048.0,
+    "pnl": 7563.0,
+    "equity": 113370.0,
     "dd_pct": 0.0,
-    "dist_wall": 36048.0,
+    "dist_wall": 41370.0,
     "src": "pred"
    },
    {
@@ -2334,6 +2678,11 @@
       "pnl": 343.0,
       "src": "pred"
      },
+     "on100": {
+      "risk": 0.5,
+      "pnl": -115.0,
+      "src": "pred"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": -33.0,
@@ -2342,6 +2691,11 @@
      "trr": {
       "risk": 0.5,
       "pnl": 807.0,
+      "src": "pred"
+     },
+     "onger": {
+      "risk": 0.5,
+      "pnl": 433.0,
       "src": "pred"
      },
      "rsi": {
@@ -2355,10 +2709,10 @@
       "src": "pred"
      }
     },
-    "pnl": 4639.0,
-    "equity": 112687.0,
+    "pnl": 4957.0,
+    "equity": 118326.0,
     "dd_pct": 0.0,
-    "dist_wall": 40687.0,
+    "dist_wall": 46326.0,
     "src": "pred"
    },
    {
@@ -2400,6 +2754,11 @@
       "pnl": 0.0,
       "src": "brak"
      },
+     "on100": {
+      "risk": 0.5,
+      "pnl": -134.0,
+      "src": "pred"
+     },
      "ppk": {
       "risk": 0.33,
       "pnl": 362.0,
@@ -2408,6 +2767,11 @@
      "trr": {
       "risk": 0.5,
       "pnl": 835.0,
+      "src": "pred"
+     },
+     "onger": {
+      "risk": 0.5,
+      "pnl": -128.0,
       "src": "pred"
      },
      "rsi": {
@@ -2421,16 +2785,16 @@
       "src": "pred"
      }
     },
-    "pnl": 4659.0,
-    "equity": 117346.0,
+    "pnl": 4397.0,
+    "equity": 122723.0,
     "dd_pct": 0.0,
-    "dist_wall": 45346.0,
+    "dist_wall": 50723.0,
     "src": "pred"
    }
   ],
-  "end_equity": 117346.0,
-  "ret_pct": 46.7,
-  "max_dd_pct": 12.77,
+  "end_equity": 122723.0,
+  "ret_pct": 53.4,
+  "max_dd_pct": 6.64,
   "min_equity": 80000.0,
   "breach": false
  },
@@ -2565,6 +2929,25 @@
    ],
    "ftmo_note": "Swing: weekend/news OK. standard"
   },
+  "on100": {
+   "name": "US100 Overnight",
+   "symbol": "US100",
+   "tf": "m5",
+   "champ_risk": 0.5,
+   "base_risk": 0.33,
+   "direction": "long-only",
+   "off_months": [],
+   "reduced_months": [
+    "Lut",
+    "Mar",
+    "Kwi",
+    "Maj",
+    "Wrz",
+    "Lis",
+    "Gru"
+   ],
+   "ftmo_note": "Swing: weekend/news OK. LONG-only — wrażliwy na bearish LW. standard"
+  },
   "ppk": {
    "name": "US100 PPK-Rev",
    "symbol": "US100",
@@ -2602,6 +2985,25 @@
     "Sie"
    ],
    "ftmo_note": "Swing: weekend/news OK. standard"
+  },
+  "onger": {
+   "name": "DAX Overnight",
+   "symbol": "GER40",
+   "tf": "m5",
+   "champ_risk": 0.5,
+   "base_risk": 0.33,
+   "direction": "long-only",
+   "off_months": [],
+   "reduced_months": [
+    "Mar",
+    "Kwi",
+    "Maj",
+    "Sie",
+    "Wrz",
+    "Paź",
+    "Gru"
+   ],
+   "ftmo_note": "Swing: weekend/news OK. LONG-only — wrażliwy na bearish LW. standard"
   },
   "rsi": {
    "name": "US100 RSI2-Rev",

@@ -113,7 +113,8 @@ def render_section(monthly_bt, lw, cot):
     PRED = [f'2026-{m:02d}' for m in range(8, 13) if f'2026-{m:02d}' not in axis]
     LWMAP = {'gdep': 'gold', 'grt': 'gold', 'trr': 'gold', 'turtle': 'gold',
              'daxl': 'sp_djia', 'orb': 'sp_djia', 'olb': 'sp_djia',
-             'ppk': 'sp_djia', 'btfd': 'sp_djia', 'rsi': 'sp_djia', 'jpy': 'usd'}
+             'ppk': 'sp_djia', 'btfd': 'sp_djia', 'rsi': 'sp_djia', 'jpy': 'usd',
+             'on100': 'sp_djia', 'onger': 'sp_djia'}
     lw_assets = (lw or {}).get('assets', {})
 
     def _sgn(x):
@@ -698,7 +699,7 @@ def render_swing(sw):
     mc, mv = verdict(mg); fc, fv = verdict(fl)
     return (
         '<div class="h2">🏦 Symulacja konta FTMO SWING 80 000 € — 2026 (dobór ryzyka per bot / miesiąc)</div>'
-        '<div class="note">Swing = wolno trzymać przez weekend i newsy → CAŁY portfel 11 botów (nie 3 jak Normal). '
+        f'<div class="note">Swing = wolno trzymać przez weekend i newsy → CAŁY portfel {sw.get("n_bots", "")} botów (nie 3 jak Normal). '
         f'Twarda ściana: equity nigdy ≤ <b>{wall:,.0f} €</b> (−10%). Bazowe ryzyko <b>{sw["base_risk"]}%</b>/trade '
         '(prop, MC iter.#35). <b>Dobór</b>: bot OFF w miesiącach, gdzie historycznie (2023–25) mocno tracił; '
         'redukcja 0.20% gdy śr &lt;0 lub LW ostrzega (long-only). H1 (sty–lip) = realny backtest, '
@@ -875,7 +876,9 @@ def render_overnight(ov):
             'overnight (korelacja 0.85–0.95); GER40 dokłada inną strefę czasową. W krachu gapującym w dół obrywają '
             'razem — to cena tej premii. Wdrożone forward (demo 1115962, risk 0.5% każdy): '
             '<b>US100 + GER40</b> (max sensownej dekorelacji), liczone jako jeden bucket. '
-            'OOS 4–8 tyg. przed realnym kontem.</div>'
+            'OOS 4–8 tyg. przed realnym kontem. <b>ROI% w tej tabeli = @risk 1.0% (siła anomalii);</b> '
+            'w macierzy miesięcznej i symulacji Swing niżej ten sam edge policzony @forward 0.5% '
+            '(to, co realnie chodzi na demo 962) — stąd magnitudy o połowę mniejsze.</div>'
             '<div class="scroll"><table class="grid"><thead>' + head + '</thead><tbody>'
             + ''.join(rows) + '</tbody></table></div>')
 

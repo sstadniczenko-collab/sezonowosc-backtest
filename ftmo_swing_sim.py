@@ -34,11 +34,13 @@ MONTHS_PL = ['Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Pa≈
 
 # ryzyko championa (z config√≥w backtestu) + kierunek + klucz LW
 CHAMP = {'gdep': 2.0, 'daxl': 1.0, 'grt': 1.0, 'jpy': 1.0, 'orb': 2.0, 'olb': 1.0,
-         'trr': 1.0, 'ppk': 0.5, 'btfd': 1.0, 'rsi': 1.0, 'turtle': 1.0}
-LONG_ONLY = {'daxl', 'olb', 'btfd'}
+         'trr': 1.0, 'ppk': 0.5, 'btfd': 1.0, 'rsi': 1.0, 'turtle': 1.0,
+         'on100': 0.5, 'onger': 0.5}
+LONG_ONLY = {'daxl', 'olb', 'btfd', 'on100', 'onger'}
 LWMAP = {'gdep': 'gold', 'grt': 'gold', 'trr': 'gold', 'turtle': 'gold',
          'daxl': 'sp_djia', 'orb': 'sp_djia', 'olb': 'sp_djia',
-         'ppk': 'sp_djia', 'btfd': 'sp_djia', 'rsi': 'sp_djia', 'jpy': 'usd'}
+         'ppk': 'sp_djia', 'btfd': 'sp_djia', 'rsi': 'sp_djia', 'jpy': 'usd',
+         'on100': 'sp_djia', 'onger': 'sp_djia'}
 
 
 def load(name, *fb):
@@ -87,7 +89,8 @@ def main():
     TAILWIND = {'gdep': ('gold', 'gold', 'gold'), 'grt': ('gold', 'gold', 'gold'),
                 'trr': ('gold', 'gold', 'gold'), 'turtle': ('gold', 'gold', 'gold'),
                 'daxl': ('sp_djia', 'sp500', 'spx'), 'olb': ('sp_djia', 'sp500', 'spx'),
-                'btfd': ('sp_djia', 'nasdaq', 'ndx')}
+                'btfd': ('sp_djia', 'nasdaq', 'ndx'),
+                'on100': ('sp_djia', 'nasdaq', 'ndx'), 'onger': ('sp_djia', 'sp500', 'spx')}
 
     def tailwind_risk(t, m):
         ak = TAILWIND.get(t)
