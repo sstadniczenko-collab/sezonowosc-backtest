@@ -955,9 +955,11 @@ def main():
     sw = load("ftmo_swing.json")
     reality = load("reality_2026.json")
     ov = load("overnight_results.json")
-    section = (render_section(mbt, lw, cot) + render_overnight(ov) + render_corr(corr) + render_forecast(fc)
-               + render_convergence(lw, cot, reality) + render_weekly(lw, cot, reality)
-               + render_swing(sw) + render_next2(sw) + render_runplan(sw, lw, cot, reality, mbt))
+    # Sekcje sezonowości (corr/forecast/convergence/weekly) przeniesione do HTS Premarket
+    # Scanner (kontekst przedsesyjny). Harmonogram + Symulacja Swing usunięte (redundantne
+    # z Planem jazdy FLAT). Zostaje: macierz backtestu + overnight + Plan jazdy (FLAT).
+    section = (render_section(mbt, lw, cot) + render_overnight(ov)
+               + render_runplan(sw, lw, cot, reality, mbt))
     ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     nb = len([1 for d in (mbt or {}).values() if isinstance(d, dict) and d.get("by_month") and not d.get("error")])
     sub = (f"Oś czasu miesięcznego P&amp;L portfela {nb} botów (backtest championów) vs cykle COT / "
